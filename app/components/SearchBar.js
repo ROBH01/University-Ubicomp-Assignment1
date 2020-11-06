@@ -1,33 +1,55 @@
-import React from "react";
-import { TextInput } from "react-native";
+import React, { useState } from "react";
+import { TextInput, View, Text } from "react-native";
+import { Icon } from "react-native-elements";
 
 const SearchBar = (props) => {
+  const DeleteIcon = () => {
+    if (props.value !== "") {
+      return (
+        <Icon
+          name="times"
+          type="font-awesome"
+          size={25}
+          color="gray"
+          onPress={props.deleteSearchText}
+        ></Icon>
+      );
+    }
+    return null;
+  };
+
   return (
-    <TextInput
-      autoCapitalize="none"
-      autoCorrect={false}
-      //clearButtonMode="always"
-      value={props.value}
-      onChangeText={(text) => props.handleSearch(text)}
-      placeholder="Search"
-      maxLength={15}
-      keyboardType="ascii-capable"
+    <View
       style={{
-        backgroundColor: "white",
-        paddingHorizontal: 10,
-        alignSelf: "center",
-        width: "60%",
-        fontSize: 16,
-        height: 35,
-        marginTop: 10,
-        marginBottom: 15,
-        padding: 5,
+        flexDirection: "row",
+        alignContent: "center",
+        margin: 10,
         borderRadius: 15,
-        fontSize: 15,
+        backgroundColor: "white",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "70%",
       }}
-    />
-    //   <Icon name="cancel" size={20} />
-    //   <Icon name="search" size={25} />
+    >
+      <TextInput
+        autoCapitalize="none"
+        autoCorrect={false}
+        //clearButtonMode="always"
+        value={props.value}
+        onChangeText={(text) => props.handleSearch(text)}
+        placeholder="Search beach"
+        maxLength={15}
+        keyboardType="ascii-capable"
+        style={{
+          flex: 0.95,
+          paddingHorizontal: 10,
+          height: 35,
+          padding: 5,
+          fontSize: 15,
+        }}
+      />
+      <DeleteIcon />
+    </View>
   );
 };
 

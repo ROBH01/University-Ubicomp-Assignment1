@@ -8,6 +8,7 @@ import {
   Image,
   Button,
   TouchableHighlight,
+  TouchableOpacity,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import MapView from "react-native-maps";
@@ -19,6 +20,7 @@ import openMap from "react-native-open-maps";
 //import Icon from "react-native-vector-icons/FontAwesome";
 import ActionSheet from "react-native-actionsheet";
 import ActionSheetModal from "./ActionSheetModal";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 
 function InfoList(props) {
   return <Text style={{ fontSize: 15 }}>{props.children}</Text>;
@@ -129,6 +131,7 @@ const CustomModal = (props) => {
       onSwipeComplete={props.closeModal}
     >
       {/* Main modal view */}
+
       <View
         style={{
           borderRadius: 20,
@@ -299,7 +302,7 @@ const CustomModal = (props) => {
             justifyContent: "space-around",
           }}
         >
-          <View style={{ width: "42%", backgroundColor: "pink" }}>
+          <View style={{ width: "42%" }}>
             <Button
               title="Directions"
               onPress={() => TravelTo(`${latitude} ${longitude}`)}
@@ -308,10 +311,33 @@ const CustomModal = (props) => {
 
           <View style={{ width: "42%" }}>
             <Button
-              title="Nearest parking "
+              title="Nearest parking"
+              //disabled={beachStatus === "Avoid" ? true : false}
               onPress={() => TravelTo(`${latitudeParking} ${longitudeParking}`)}
             ></Button>
           </View>
+
+          {/* <TouchableOpacity>
+            <View
+              style={{
+                marginBottom: 30,
+                width: 100,
+                height: 100,
+                alignItems: "center",
+                backgroundColor: "#2196F3",
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  padding: 20,
+                  color: "white",
+                }}
+              >
+                TouchableOpacity
+              </Text>
+            </View>
+          </TouchableOpacity> */}
         </View>
       </View>
     </Modal>

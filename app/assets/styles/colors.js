@@ -3,6 +3,8 @@
 export default {
   // my colors here
   white: "#fff",
+  title: "#514e4e",
+  paragraph: "#515151",
   lightgray: "#DEDEDE",
   blueTutton: "#2196F3",
   redSemaphor: "#f41f1f",

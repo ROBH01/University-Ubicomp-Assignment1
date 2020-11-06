@@ -1,11 +1,21 @@
 //add code that renders the beach screen showing a list of beaches in a row card style to the user
 import React, { useState } from "react";
-import { StyleSheet, View, FlatList, Button } from "react-native";
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Button,
+  TextInput,
+  Text,
+} from "react-native";
 import getBeaches from "../BeachDetails";
 import ListItem from "../components/CustomRowList";
 import SearchBar from "../components/SearchBar";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Icon } from "react-native-elements";
+import CustomModal from "../components/CustomModal";
+import FavModal from "../components/FavouritesModal";
+import { concat } from "react-native-reanimated";
 
 const ListItemSeperator = () => {
   return <View style={styles.containerseparator} />;
@@ -37,9 +47,8 @@ const BeachListScreen = () => {
   const [value, onChangeText] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const [favBeaches, setFavBeaches] = useState([]);
-  const [favBeachBtnTitle, setFavBeachBtnTitle] = useState(
-    "Click to see your fav beaches"
-  );
+  const [pressed, setPressed] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleSearch = (text) => {
     onChangeText(text);
@@ -55,26 +64,88 @@ const BeachListScreen = () => {
     setBeachData(newBeachData);
   };
 
-  const handleFavourite = (item) => {
-    newData = beachData.filter((i) => i.id === item.id);
-    setFavBeaches(newData);
-    alert(`${item.beachName} added to favourites`);
+  const deleteSearchText = () => {
+    onChangeText("");
+    setBeachData(getBeaches);
   };
 
-  function showFavouriteBeachList() {
-    setFavBeachBtnTitle("Go back to the beach list");
-    setBeachData(favBeaches);
-  }
+  const handleFavourite = (item) => {
+    if (favBeaches.includes(item)) {
+      alert(`${item.beachName} already added to favourites`);
+    } else {
+      let NewFavBeaches = favBeaches.concat(item);
+      setFavBeaches(NewFavBeaches);
+      alert(`${item.beachName} added to favourites`);
+    }
+  };
+
+  const xt = () => {
+    if (!pressed) {
+      setPressed(true);
+      // if (favBeaches.length === 0) {
+      //   setBeachData(favBeaches);
+      //   alert("You haven't added any beaches to favourite");
+      // }
+      setBeachData(favBeaches);
+    } else {
+      setPressed(false);
+      setBeachData(getBeaches());
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <SearchBar value={value} handleSearch={handleSearch} />
-      <View>
-        <Button
-          title={favBeachBtnTitle}
-          onPress={showFavouriteBeachList}
-        ></Button>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-around",
+          alignItems: "center",
+          marginLeft: 10,
+          marginRight: 10,
+        }}
+      >
+        <SearchBar
+          value={value}
+          handleSearch={handleSearch}
+          deleteSearchText={deleteSearchText}
+        />
+
+        <View>
+          {/* <Text>Favourite</Text> */}
+          <Icon
+            name="star"
+            type="font-awesome"
+            size={35}
+            color={pressed ? "orange" : "gray"}
+            onPress={xt} //This is the best way!!! Make current view display fav beaches when clicked!
+            //onPress={() => setModalVisible(true)}
+          ></Icon>
+        </View>
       </View>
+
+      <FavModal
+        text="Hello"
+        modalVisible={modalVisible}
+        data={favBeaches}
+        // beachName={beachName}
+        // statusColour={statusColour}
+        // beachStatus={beachStatus}
+        // lifeguarded={lifeguarded}
+        // publicToilets={publicToilets}
+        // parkingAvailability={parkingAvailability}
+        // dogWalking={dogWalking}
+        // cycling={cycling}
+        // bbq={bbq}
+        // warningInfo={warningInfo}
+        // imagePath={imagePath}
+        // latitude={latitude}
+        // longitude={longitude}
+        // latitudeParking={latitudeParking}
+        // longitudeParking={longitudeParking}
+        // modalVisible={modalVisible}
+        // closeModal={() => setModalVisible(false)}
+        closeModal={() => setModalVisible(false)}
+      ></FavModal>
 
       <FlatList
         data={beachData}
@@ -101,7 +172,7 @@ const BeachListScreen = () => {
             longitude={item.longitude}
             latitudeParking={item.latitudeParking}
             longitudeParking={item.longitudeParking}
-            onPress={() => exampleOnPress()}
+            onPress={() => exampleOnPress(item)}
             renderRightActions={() => (
               <RowCardFavouriteAction onPress={() => handleFavourite(item)} />
             )}

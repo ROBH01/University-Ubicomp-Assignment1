@@ -5,11 +5,13 @@ import {
   TouchableHighlight,
   View,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import CustomModal from "../components/CustomModal";
 import colors from "../assets/styles/colors";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+//import { TouchableOpacity } from "react-native-gesture-handler";
 
 const ListItem = (props) => {
   let beachName = props.beachName;
@@ -54,8 +56,8 @@ const ListItem = (props) => {
       rightThreshold={20}
       renderRightActions={props.renderRightActions}
     >
-      <TouchableHighlight
-        activeOpacity={0.8}
+      <TouchableOpacity
+        activeOpacity={0.5}
         underlayColor="#DDD"
         onPress={() => setModalVisible(true)}
       >
@@ -134,11 +136,17 @@ const ListItem = (props) => {
                 // backgroundColor={cycling === "Yes" ? "#0078c6" : colors.gray}
               ></Icon>
               <Icon
-                name="paw"
-                type="font-awesome"
+                name="dog-service"
+                type="material-community"
                 size={18}
                 color={dogWalking === "Yes" ? "#0078c6" : colors.gray}
                 // backgroundColor={dogWalking === "Yes" ? "#b76e40" : colors.gray}
+              ></Icon>
+              <Icon
+                name="grill"
+                type="material-community"
+                size={18}
+                color={bbq === "No" ? colors.gray : "#0078c6"}
               ></Icon>
               <Icon
                 name="local-parking"
@@ -193,7 +201,7 @@ const ListItem = (props) => {
             /> */}
           </View>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </Swipeable>
   );
 };

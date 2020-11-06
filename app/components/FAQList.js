@@ -1,13 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import colors from "../assets/styles/colors";
+import appStyles from "../assets/styles/style-config";
 
-const FAQList = (props) => {
-  let questionNumber = props.questionNumber;
-  let question = props.question;
-  let answer = props.answer;
-
+const FAQList = ({ questionNumber, question, answer }) => {
   return (
-    <View style={styles.rowCard}>
+    <View style={styles.faqRowCard}>
       <View>
         <Text style={styles.question}>
           Q{parseInt(questionNumber) + 1}. {question}
@@ -22,25 +20,24 @@ const FAQList = (props) => {
 };
 
 const styles = StyleSheet.create({
-  rowCard: {
+  faqRowCard: {
+    paddingTop: 5,
+    paddingBottom: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    paddingTop: 5,
-    paddingBottom: 5,
-    backgroundColor: "#f6f6f6",
-    flexDirection: "column",
-    borderRadius: 10,
-    justifyContent: "flex-start",
+    backgroundColor: colors.white,
+    borderRadius: appStyles.borderRadius.borderRadius,
     marginBottom: 10,
-    // opacity: 0.3,
   },
   question: {
     fontWeight: "bold",
     fontSize: 16,
+    color: colors.title,
   },
   answer: {
-    marginTop: 10,
-    fontSize: 15,
+    marginTop: 5,
+    fontSize: appStyles.paragraph.fontSize,
+    color: colors.paragraph,
   },
 });
 
