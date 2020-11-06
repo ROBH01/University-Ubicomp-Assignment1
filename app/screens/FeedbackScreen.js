@@ -1,24 +1,12 @@
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, Text, View, TextInput } from "react-native";
 import StarRating from "react-native-star-rating";
-import LinearGradient from "react-native-linear-gradient";
+import CustomLineSeparator from "../components/LineSeparator";
+import colors from "../assets/styles/colors";
+import CustomButton from "../components/CustomButton";
 
-const FeedbackScreen = ({ navigation, route }) => {
-  const LineSeparator = () => {
-    return (
-      <View
-        style={{
-          width: "40%",
-          height: 3,
-          alignSelf: "center",
-          backgroundColor: "lightgray",
-          marginTop: 15,
-          marginBottom: 20,
-        }}
-      />
-    );
-  };
-
+const FeedbackScreen = () => {
+  // Function that would ideally submit the review, in this case it's just an alert with the details the user has typed in
   function submitReview() {
     alert(
       `Review submitted.
@@ -33,39 +21,34 @@ const FeedbackScreen = ({ navigation, route }) => {
   const [reviewBody, setReviewBody] = useState("");
 
   return (
-    <View style={styles.homeScreen}>
-      <View style={styles.rowCard}>
+    <View style={styles.feedbackScreen}>
+      <View style={styles.ratingView}>
         {/* Rating view */}
-        <View
-          style={{ backgroundColor: "white", borderRadius: 10, padding: 5 }}
-        >
-          <Text style={{ textAlign: "center", fontSize: 22, marginBottom: 10 }}>
-            Rating: {rating}/5
-          </Text>
+        <View>
+          <Text style={styles.ratingTitle}>Rating: {rating}/5</Text>
           <StarRating
-            disabled={false}
             maxStars={5}
             emptyStarColor={"gold"}
             animation="bounce"
             starSize={50}
             rating={rating}
-            containerStyle={{ marginLeft: "5%", marginRight: "5%" }}
+            containerStyle={{ marginLeft: "8%", marginRight: "8%" }}
             fullStarColor={"gold"}
             selectedStar={(rating) => setRating(rating)}
           />
         </View>
 
-        <LineSeparator />
+        <CustomLineSeparator
+          width={"40%"}
+          height={3}
+          alignSelf={"center"}
+          backgroundColor={"lightgray"}
+          marginTop={15}
+          marginBottom={20}
+        />
 
         {/* Review title view */}
-        <View
-          style={{
-            backgroundColor: "#ededed",
-            borderRadius: 10,
-            padding: 5,
-            marginBottom: 10,
-          }}
-        >
+        <View style={styles.titleView}>
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
@@ -84,21 +67,14 @@ const FeedbackScreen = ({ navigation, route }) => {
         </View>
 
         {/* Body review view */}
-        <View
-          style={{
-            backgroundColor: "#ededed",
-            borderRadius: 10,
-            padding: 5,
-            marginBottom: 20,
-          }}
-        >
+        <View style={styles.bodyView}>
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
             paddingHorizontal={false}
             multiline={true}
             numberOfLines={10}
-            //clearButtonMode="always"
+            clearButtonMode="always"
             onChangeText={(text) => setReviewBody(text)}
             placeholder="Write review"
             keyboardType="default"
@@ -110,21 +86,25 @@ const FeedbackScreen = ({ navigation, route }) => {
             }}
           />
         </View>
-        <Button title="Submit review" onPress={submitReview} />
+
+        <CustomButton
+          buttonName={"SUBMIT"}
+          onPressIn={submitReview}
+          height={40}
+          width={"45%"}
+        />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  homeScreen: {
+  feedbackScreen: {
     flex: 1,
-    // alignItems: "center",
-    justifyContent: "flex-start",
     padding: 10,
-    backgroundColor: "#dedede",
+    backgroundColor: colors.lightgray,
   },
-  rowCard: {
+  ratingView: {
     padding: 10,
     borderWidth: 1,
     borderRadius: 5,
@@ -134,16 +114,32 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.9,
     shadowRadius: 3,
-    elevation: 20,
-    marginTop: 20,
-    backgroundColor: "white",
+    elevation: 50,
+    marginTop: 10,
+    backgroundColor: colors.white,
     flexDirection: "column",
     borderRadius: 10,
-    //justifyContent: "flex-start",
+  },
+  ratingTitle: {
+    textAlign: "center",
+    fontSize: 22,
+    marginBottom: 10,
   },
   title: {
     padding: 20,
     fontSize: 30,
+  },
+  titleView: {
+    backgroundColor: colors.textInputBackground,
+    borderRadius: 10,
+    padding: 5,
+    marginBottom: 10,
+  },
+  bodyView: {
+    backgroundColor: colors.textInputBackground,
+    borderRadius: 10,
+    padding: 5,
+    marginBottom: 20,
   },
 });
 

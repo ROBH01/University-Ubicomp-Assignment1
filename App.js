@@ -1,28 +1,17 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import React from "react";
+import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import BeachListScreen from "./app/screens/BeachListScreen";
 import { Icon, Tooltip } from "react-native-elements";
 import FeedbackScreen from "./app/screens/FeedbackScreen";
 import FAQsScreen from "./app/screens/FAQScreen";
-import { ScrollView } from "react-native-gesture-handler";
 import getBeaches from "./app/BeachDetails";
-import CustomRowList from "./app/components/CustomRowList";
 import SplashScreen from "./app/screens/SplashScreen";
 import { render } from "react-dom";
-import { useActionSheet } from "@expo/react-native-action-sheet";
 import ColumnCard from "./app/components/BusiestBeachesColumnCard";
 import colors from "./app/assets/styles/colors";
+import CustomButton from "./app/components/CustomButton";
 
 const HomeScreen = ({ navigation, route }) => {
   function getBusyBeaches() {
@@ -34,26 +23,31 @@ const HomeScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.homeScreen}>
-      <Text
-        style={{
-          color: colors.redSemaphor,
-          fontSize: 18,
-          marginBottom: 5,
-          textAlign: "center",
-        }}
-      >
-        Important generic notice:
-      </Text>
-      <Text style={{ fontSize: 16 }}>
-        Due to the closure of the summer season, congestion statuses will be
-        continually reviewed and updated when required
-      </Text>
+      {/* Text general notice view */}
+      <View>
+        <Text
+          style={{
+            color: colors.redSemaphor,
+            fontSize: 18,
+            marginBottom: 5,
+            textAlign: "center",
+          }}
+        >
+          Important general notice:
+        </Text>
 
-      <View
+        <Text style={{ fontSize: 14, textAlign: "center" }}>
+          Due to the closure of the summer season, congestion statuses will be
+          continually reviewed and updated when required
+        </Text>
+      </View>
+
+      {/* Beaches to avoid view */}
+      {/* <View
         style={{
-          marginTop: 20,
-          backgroundColor: "white",
-          height: 290,
+          marginTop: 10,
+          backgroundColor: "#ededed",
+          height: "40%",
           paddingLeft: 5,
           paddingRight: 5,
           borderRadius: 10,
@@ -62,9 +56,10 @@ const HomeScreen = ({ navigation, route }) => {
         <Text
           style={{
             textAlign: "center",
-            fontSize: 16,
+            fontSize: 18,
             fontWeight: "bold",
             marginTop: 2,
+            marginBottom: 5,
           }}
         >
           Beaches to avoid at the moment
@@ -77,51 +72,41 @@ const HomeScreen = ({ navigation, route }) => {
           renderItem={({ item }) => (
             <ColumnCard
               beachName={item.beachName}
-              beachStatus={item.beachStatus}
               imagePath={item.imagePath}
             />
           )}
         />
-      </View>
+      </View> */}
 
       <View
         style={{
-          justifyContent: "space-around",
-          height: 150,
+          height: "40%",
           marginTop: 10,
-          backgroundColor: "lightgray",
+          marginBottom: 10,
+          justifyContent: "space-around",
         }}
       >
-        <Button
-          title="Beach list"
-          onPress={() => navigation.push("beachList")}
+        <CustomButton
+          buttonName={"BEACH LIST"}
+          onPressIn={() => navigation.push("beachList")}
+          height={40}
+          width={"80%"}
         />
-        <Button title="Feedback" onPress={() => navigation.push("feedback")} />
-        <Button title="FAQs" onPress={() => navigation.push("faqs")} />
-      </View>
 
-      <TouchableOpacity>
-        <View
-          style={{
-            width: "60%",
-            height: 40,
-            justifyContent: "center",
-            alignSelf: "center",
-            borderRadius: 10,
-            backgroundColor: "#2196F3",
-          }}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              padding: 20,
-              color: "white",
-            }}
-          >
-            TouchableOpacity
-          </Text>
-        </View>
-      </TouchableOpacity>
+        <CustomButton
+          buttonName={"FEEDBACK"}
+          onPressIn={() => navigation.push("feedback")}
+          height={40}
+          width={"80%"}
+        />
+
+        <CustomButton
+          buttonName={"FAQs"}
+          onPressIn={() => navigation.push("faqs")}
+          height={40}
+          width={"80%"}
+        />
+      </View>
 
       {/* XPERNEST LOGO */}
       {/* <View style={{ marginBottom: "90%" }}>
@@ -170,19 +155,6 @@ function Info() {
     </Tooltip>
   );
 }
-
-// function FAQs() {
-//   return (
-//     <Icon
-//       name="frequently-asked-questions"
-//       type="material-community"
-//       size={30}
-//       color="white"
-//       backgroundColor="gray"
-//       marginRight={10}
-//     ></Icon>
-//   );
-// }
 
 const Root = createStackNavigator();
 
@@ -251,10 +223,12 @@ export default function App() {
 const styles = StyleSheet.create({
   homeScreen: {
     flex: 1,
-    // alignItems: "center",
     justifyContent: "flex-start",
-    padding: 20,
-    backgroundColor: "#dedede",
+    //alignContent: "center",
+    paddingTop: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    backgroundColor: colors.lightgray,
   },
   title: {
     padding: 20,

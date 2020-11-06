@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: appStyles.borderRadius.borderRadius,
     marginBottom: 10,
+    marginRight: 10,
+    marginLeft: 10,
   },
   question: {
     fontWeight: "bold",

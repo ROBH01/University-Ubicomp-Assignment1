@@ -14,7 +14,6 @@ import SearchBar from "../components/SearchBar";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Icon } from "react-native-elements";
 import CustomModal from "../components/CustomModal";
-import FavModal from "../components/FavouritesModal";
 import { concat } from "react-native-reanimated";
 
 const ListItemSeperator = () => {
@@ -123,30 +122,6 @@ const BeachListScreen = () => {
         </View>
       </View>
 
-      <FavModal
-        text="Hello"
-        modalVisible={modalVisible}
-        data={favBeaches}
-        // beachName={beachName}
-        // statusColour={statusColour}
-        // beachStatus={beachStatus}
-        // lifeguarded={lifeguarded}
-        // publicToilets={publicToilets}
-        // parkingAvailability={parkingAvailability}
-        // dogWalking={dogWalking}
-        // cycling={cycling}
-        // bbq={bbq}
-        // warningInfo={warningInfo}
-        // imagePath={imagePath}
-        // latitude={latitude}
-        // longitude={longitude}
-        // latitudeParking={latitudeParking}
-        // longitudeParking={longitudeParking}
-        // modalVisible={modalVisible}
-        // closeModal={() => setModalVisible(false)}
-        closeModal={() => setModalVisible(false)}
-      ></FavModal>
-
       <FlatList
         data={beachData}
         keyExtractor={(item) => item.id}
@@ -157,7 +132,6 @@ const BeachListScreen = () => {
         }}
         renderItem={({ item }) => (
           <ListItem
-            articleNumber={item.id}
             beachName={item.beachName}
             beachStatus={item.beachStatus}
             lifeguarded={item.lifeguarded}
@@ -172,7 +146,7 @@ const BeachListScreen = () => {
             longitude={item.longitude}
             latitudeParking={item.latitudeParking}
             longitudeParking={item.longitudeParking}
-            onPress={() => exampleOnPress(item)}
+            //onPress={() => exampleOnPress(item)} //need still to pass this and render actions?
             renderRightActions={() => (
               <RowCardFavouriteAction onPress={() => handleFavourite(item)} />
             )}

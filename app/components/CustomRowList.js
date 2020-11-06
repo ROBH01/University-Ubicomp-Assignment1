@@ -1,48 +1,43 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 import CustomModal from "../components/CustomModal";
 import colors from "../assets/styles/colors";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-//import { TouchableOpacity } from "react-native-gesture-handler";
 
-const ListItem = (props) => {
-  let beachName = props.beachName;
-  let beachStatus = props.beachStatus;
-  let lifeguarded = props.lifeguarded;
-  let publicToilets = props.publicToilets;
-  let parkingAvailability = props.parkingAvailability;
-  let dogWalking = props.dogWalking;
-  let cycling = props.cycling;
-  let bbq = props.bbq;
-  let warningInfo = props.warningInfo;
-  let imagePath = props.imagePath;
-  let latitude = props.latitude;
-  let longitude = props.longitude;
-  let latitudeParking = props.latitudeParking;
-  let longitudeParking = props.longitudeParking;
+const ListItem = ({
+  beachName,
+  beachStatus,
+  lifeguarded,
+  publicToilets,
+  parkingAvailability,
+  dogWalking,
+  cycling,
+  bbq,
+  warningInfo,
+  imagePath,
+  latitude,
+  longitude,
+  latitudeParking,
+  longitudeParking,
+  onPress,
+  renderRightActions,
+}) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const lightGrayColour = "#afafaf";
+  const lightGrayColour = colors.unavailableGray;
   let semaphorRed = lightGrayColour;
   let semaphorAmber = lightGrayColour;
   let semaphorGreen = lightGrayColour;
   let statusColour = lightGrayColour;
 
   if (beachStatus === "Avoid") {
-    semaphorRed = "#f41f1f";
+    semaphorRed = colors.redSemaphor;
     statusColour = semaphorRed;
   } else if (beachStatus === "Congested, stay alert") {
-    semaphorAmber = "#f4781f";
+    semaphorAmber = colors.amberSemaphore;
     statusColour = semaphorAmber;
   } else if (beachStatus === "Low congestion") {
-    semaphorGreen = "#4ac63f";
+    semaphorGreen = colors.greenSemaphor;
     statusColour = semaphorGreen;
   } else {
     statusColour = lightGrayColour;
@@ -54,7 +49,7 @@ const ListItem = (props) => {
       overshootRight={false}
       friction={2}
       rightThreshold={20}
-      renderRightActions={props.renderRightActions}
+      renderRightActions={renderRightActions}
     >
       <TouchableOpacity
         activeOpacity={0.5}
@@ -93,14 +88,6 @@ const ListItem = (props) => {
 
           {/* This view renders the beach name and the status */}
           <View style={styles.info}>
-            {/* <View
-            style={{
-              flexDirection: "column",
-              padding: 10,
-              justifyContent: "space-evenly",
-              backgroundColor: "pink",
-            }}
-          > */}
             <Text style={styles.headline}>{beachName}</Text>
             <Text style={{ marginTop: 5, fontSize: 15 }}>
               Status: {beachStatus}
@@ -117,36 +104,32 @@ const ListItem = (props) => {
                 name="life-ring"
                 type="font-awesome"
                 size={18}
-                color={lifeguarded === "Yes" ? "#0078c6" : colors.gray}
-                // backgroundColor={lifeguarded === "Yes" ? "#0078c6" : colors.gray}
+                color={lifeguarded === "Yes" ? colors.iconActive : colors.gray}
               ></Icon>
               <Icon
                 name="wc"
                 size={18}
-                color={publicToilets === "Yes" ? "#0078c6" : colors.gray}
-                // backgroundColor={
-                //   publicToilets === "Yes" ? "#0078c6" : colors.gray
-                // }
+                color={
+                  publicToilets === "Yes" ? colors.iconActive : colors.gray
+                }
               ></Icon>
               <Icon
                 name="bicycle"
                 type="font-awesome"
                 size={18}
-                color={cycling === "Yes" ? "#0078c6" : colors.gray}
-                // backgroundColor={cycling === "Yes" ? "#0078c6" : colors.gray}
+                color={cycling === "Yes" ? colors.iconActive : colors.gray}
               ></Icon>
               <Icon
                 name="dog-service"
                 type="material-community"
                 size={18}
-                color={dogWalking === "Yes" ? "#0078c6" : colors.gray}
-                // backgroundColor={dogWalking === "Yes" ? "#b76e40" : colors.gray}
+                color={dogWalking === "Yes" ? colors.iconActive : colors.gray}
               ></Icon>
               <Icon
                 name="grill"
                 type="material-community"
                 size={18}
-                color={bbq === "No" ? colors.gray : "#0078c6"}
+                color={bbq === "No" ? colors.gray : colors.iconActive}
               ></Icon>
               <Icon
                 name="local-parking"
@@ -154,7 +137,7 @@ const ListItem = (props) => {
                 backgroundColor={
                   parkingAvailability === "No parking at this beach"
                     ? colors.gray
-                    : "#0078c6"
+                    : colors.iconActive
                 }
                 size={18}
                 color="white"

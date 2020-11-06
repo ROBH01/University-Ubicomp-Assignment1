@@ -1,7 +1,5 @@
 // This file contains all the FAQ questions and answers
 
-// const { exp } = require("react-native-reanimated");
-
 const FAQs = [
   {
     id: "0",

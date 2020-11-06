@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { TextInput, View, Text } from "react-native";
+import React from "react";
+import { TextInput, View } from "react-native";
 import { Icon } from "react-native-elements";
 
-const SearchBar = (props) => {
+const SearchBar = ({ value, handleSearch, deleteSearchText }) => {
   const DeleteIcon = () => {
-    if (props.value !== "") {
+    if (value !== "") {
       return (
         <Icon
           name="times"
           type="font-awesome"
           size={25}
           color="gray"
-          onPress={props.deleteSearchText}
+          onPress={deleteSearchText}
         ></Icon>
       );
     }
@@ -35,8 +35,8 @@ const SearchBar = (props) => {
         autoCapitalize="none"
         autoCorrect={false}
         //clearButtonMode="always"
-        value={props.value}
-        onChangeText={(text) => props.handleSearch(text)}
+        value={value}
+        onChangeText={(text) => handleSearch(text)}
         placeholder="Search beach"
         maxLength={15}
         keyboardType="ascii-capable"
