@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, Pressable, StyleSheet } from "react-native";
 import colors from "../assets/styles/colors";
 
-const CustomButton = ({ buttonName, onPressIn, height, width }) => {
+const CustomButton = ({ buttonName, onPressIn, height, width, disabled }) => {
   return (
     <View
       style={{
@@ -15,9 +15,10 @@ const CustomButton = ({ buttonName, onPressIn, height, width }) => {
     >
       <Pressable
         onPressIn={onPressIn}
+        disabled={disabled}
         style={{
           borderRadius: 10,
-          backgroundColor: colors.blueTutton,
+          backgroundColor: disabled ? "lightgray" : colors.blueTutton,
         }}
       >
         <Text style={styles.buttonText}>{buttonName}</Text>

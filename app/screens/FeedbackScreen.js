@@ -22,7 +22,8 @@ const FeedbackScreen = () => {
 
   return (
     <View style={styles.feedbackScreen}>
-      <View style={styles.ratingView}>
+      {/* Feedback window */}
+      <View style={styles.feedbackWindow}>
         {/* Rating view */}
         <View>
           <Text style={styles.ratingTitle}>Rating: {rating}/5</Text>
@@ -48,7 +49,7 @@ const FeedbackScreen = () => {
         />
 
         {/* Review title view */}
-        <View style={styles.titleView}>
+        <View style={styles.reviewTitleView}>
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
@@ -57,17 +58,12 @@ const FeedbackScreen = () => {
             onChangeText={(text) => setReviewTitle(text)}
             maxLength={30}
             keyboardType="default"
-            style={{
-              paddingHorizontal: 10,
-              height: 35,
-              padding: 5,
-              fontSize: 16,
-            }}
+            style={styles.reviewTitleInput}
           />
         </View>
 
         {/* Body review view */}
-        <View style={styles.bodyView}>
+        <View style={styles.reviewBodyView}>
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
@@ -78,12 +74,7 @@ const FeedbackScreen = () => {
             onChangeText={(text) => setReviewBody(text)}
             placeholder="Write review"
             keyboardType="default"
-            style={{
-              paddingHorizontal: 10,
-              padding: 5,
-              fontSize: 16,
-              textAlignVertical: "top",
-            }}
+            style={styles.reviewBodyInput}
           />
         </View>
 
@@ -92,6 +83,11 @@ const FeedbackScreen = () => {
           onPressIn={submitReview}
           height={40}
           width={"45%"}
+          disabled={
+            rating === 0 || reviewTitle.length === 0 || reviewBody.length === 0
+              ? true
+              : false
+          }
         />
       </View>
     </View>
@@ -103,8 +99,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     backgroundColor: colors.lightgray,
+    justifyContent: "center",
   },
-  ratingView: {
+  feedbackWindow: {
     padding: 10,
     borderWidth: 1,
     borderRadius: 5,
@@ -116,6 +113,8 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 50,
     marginTop: 10,
+    marginLeft: 10,
+    marginRight: 10,
     backgroundColor: colors.white,
     flexDirection: "column",
     borderRadius: 10,
@@ -123,23 +122,31 @@ const styles = StyleSheet.create({
   ratingTitle: {
     textAlign: "center",
     fontSize: 22,
-    marginBottom: 10,
+    marginBottom: 15,
   },
-  title: {
-    padding: 20,
-    fontSize: 30,
-  },
-  titleView: {
+  reviewTitleView: {
     backgroundColor: colors.textInputBackground,
     borderRadius: 10,
     padding: 5,
-    marginBottom: 10,
+    marginBottom: 15,
   },
-  bodyView: {
+  reviewTitleInput: {
+    paddingHorizontal: 10,
+    height: 35,
+    padding: 5,
+    fontSize: 16,
+  },
+  reviewBodyView: {
     backgroundColor: colors.textInputBackground,
     borderRadius: 10,
     padding: 5,
-    marginBottom: 20,
+    marginBottom: 15,
+  },
+  reviewBodyInput: {
+    paddingHorizontal: 10,
+    padding: 5,
+    fontSize: 16,
+    textAlignVertical: "top",
   },
 });
 

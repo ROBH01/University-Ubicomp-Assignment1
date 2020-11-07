@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, FlatList } from "react-native";
 import getFAQs from "../FAQDetails";
 import FAQList from "../components/FAQList";
@@ -6,8 +6,6 @@ import colors from "../assets/styles/colors";
 
 const FAQsScreen = () => {
   let questionsAndAnswers = getFAQs();
-  const [faqData, setFaqData] = useState(questionsAndAnswers);
-  const [refreshing, setRefreshing] = useState(false);
 
   return (
     <View
@@ -17,12 +15,8 @@ const FAQsScreen = () => {
       }}
     >
       <FlatList
-        data={faqData}
-        keyExtractor={(item) => item.id}
-        refreshing={refreshing}
-        onRefresh={() => {
-          setFaqData(questionsAndAnswers);
-        }}
+        data={questionsAndAnswers}
+        style={{ marginTop: 20 }}
         renderItem={({ item }) => (
           <FAQList
             questionNumber={item.id}

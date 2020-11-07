@@ -9,7 +9,7 @@ const SearchBar = ({ value, handleSearch, deleteSearchText }) => {
         <Icon
           name="times"
           type="font-awesome"
-          size={25}
+          size={20}
           color="gray"
           onPress={deleteSearchText}
         ></Icon>
@@ -28,7 +28,7 @@ const SearchBar = ({ value, handleSearch, deleteSearchText }) => {
         backgroundColor: "white",
         justifyContent: "center",
         alignItems: "center",
-        width: "70%",
+        width: "40%",
       }}
     >
       <TextInput
@@ -41,7 +41,7 @@ const SearchBar = ({ value, handleSearch, deleteSearchText }) => {
         maxLength={15}
         keyboardType="ascii-capable"
         style={{
-          flex: 0.95,
+          flex: 0.9,
           paddingHorizontal: 10,
           height: 35,
           padding: 5,
