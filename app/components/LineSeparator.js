@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 
-// This is used to separate items with a line and incoming properties
+// This component is used to separate content with a line
 const CustomLineSeparator = ({
   width,
   height,

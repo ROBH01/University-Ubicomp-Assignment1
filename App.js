@@ -1,25 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import BeachListScreen from "./app/screens/BeachListScreen";
+import BeachListScreen from "./app/screens/BeachList";
 import { Icon, Tooltip } from "react-native-elements";
-import FeedbackScreen from "./app/screens/FeedbackScreen";
-import FAQsScreen from "./app/screens/FAQScreen";
-import getBeaches from "./app/BeachDetails";
+import FeedbackScreen from "./app/screens/Feedback";
+import FAQsScreen from "./app/screens/FAQ";
+import getBeaches from "./app/Beach-api";
 import SplashScreen from "./app/screens/SplashScreen";
 import { render } from "react-dom";
-import ColumnCard from "./app/components/BusiestBeachesColumnCard";
+import ColumnCard from "./app/components/FavouriteBeachesCard";
 import colors from "./app/assets/styles/colors";
 import CustomButton from "./app/components/CustomButton";
+import { useSafeArea } from "react-native-safe-area-context";
 
 const HomeScreen = ({ navigation, route }) => {
-  function getBusyBeaches() {
-    let busyBeaches = getBeaches().filter((item) => {
-      return item.beachStatus === "Avoid";
+  // Example of displaying user's favourite beaches.
+  function getFavouriteBeaches() {
+    let favBeaches = getBeaches().filter((beach) => {
+      return beach.lifeguarded === "Yes";
     });
-    return busyBeaches;
+    return favBeaches;
   }
+
+  //const [splashVisible, setSplashVisible] = useState(true);
+
+  // function hideSplash() {
+  //   setSplashVisible(false);
+  // }
+
+  // const timeOff = () => {
+  //   setTimeout(function () {
+  //     hideSplash();
+  //   }, 1000);
+  // };
+
+  // const Splash = () => {
+  //   return (
+  //     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+  //       <Text>SPLASH</Text>
+  //     </View>
+  //   );
+  // };
+
+  // if (splashVisible) {
+  //   setTimeout(() => {
+  //     console.log("Hello, World!");
+  //   }, 3000);
+  // }
 
   return (
     <View style={styles.homeScreen}>
@@ -42,8 +70,8 @@ const HomeScreen = ({ navigation, route }) => {
         </Text>
       </View>
 
-      {/* Beaches to avoid view */}
-      {/* <View
+      {/* Favourite beaches view */}
+      <View
         style={{
           marginTop: 10,
           backgroundColor: "#ededed",
@@ -56,27 +84,28 @@ const HomeScreen = ({ navigation, route }) => {
         <Text
           style={{
             textAlign: "center",
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: "bold",
-            marginTop: 2,
-            marginBottom: 5,
+            marginTop: 5,
+            marginBottom: 10,
           }}
         >
-          Beaches to avoid at the moment
+          My favourite beaches
         </Text>
 
         <FlatList
-          data={getBusyBeaches()}
+          data={getFavouriteBeaches()}
           horizontal={true}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <ColumnCard
               beachName={item.beachName}
               imagePath={item.imagePath}
+              beachStatus={item.beachStatus}
             />
           )}
         />
-      </View> */}
+      </View>
 
       <View
         style={{
@@ -107,25 +136,25 @@ const HomeScreen = ({ navigation, route }) => {
           width={"80%"}
         />
       </View>
-
-      {/* XPERNEST LOGO */}
-      {/* <View style={{ marginBottom: "90%" }}>
-        <Image
-          source={require("./app/assets/xpertnest.jpg")}
-          style={{ width: "100%", height: "50%", borderRadius: 20 }}
-          resizeMode="center"
-        />
-      </View> */}
     </View>
   );
 };
 
 function ActionBarIcon() {
   return (
-    <Image
-      source={require("./app/assets/splash.png")}
-      style={{ width: 40, height: 40, marginLeft: 10 }}
-    />
+    <Tooltip
+      popover={
+        <Text style={{ color: "white", fontSize: 15 }}>App version: 1.08</Text>
+      }
+      backgroundColor="#2196F3"
+      width={140}
+      height={50}
+    >
+      <Image
+        source={require("./app/assets/splash.png")}
+        style={{ width: 40, height: 40, marginLeft: 10 }}
+      />
+    </Tooltip>
   );
 }
 
@@ -133,16 +162,16 @@ function Info() {
   return (
     <Tooltip
       popover={
-        <Text style={{ color: "white", fontSize: 15 }}>
-          Colour coded maps are for guidance only and predict likely crowding of
-          promenade and beach area today based on previous football, CCTV,
-          weather patterns and observation. Information is then updated via live
-          observation by the Seafront Team between 11am and 5pm.
+        <Text style={{ color: "white" }}>
+          Colour statuses are for guidance only. They predict likely crowding of
+          promenade and beach area today based on CCTV, social events, weather
+          patterns and observation. Information is updated by the Seafront Team
+          between 11am and 5pm.
         </Text>
       }
       backgroundColor="#2196F3"
       width={300}
-      height={150}
+      height={120}
       containerStyle={{ marginHorizontal: -20 }}
     >
       <Icon
@@ -200,6 +229,7 @@ export default function App() {
             headerRight: Info,
           }}
         />
+
         <Root.Screen
           name="feedback"
           component={FeedbackScreen}

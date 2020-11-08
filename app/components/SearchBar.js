@@ -28,7 +28,7 @@ const SearchBar = ({ value, handleSearch, deleteSearchText }) => {
         backgroundColor: "white",
         justifyContent: "center",
         alignItems: "center",
-        width: "40%",
+        width: "35%",
       }}
     >
       <TextInput

@@ -6,7 +6,7 @@ import colors from "../assets/styles/colors";
 import CustomButton from "../components/CustomButton";
 
 const FeedbackScreen = () => {
-  // Function that would ideally submit the review, in this case it's just an alert with the details the user has typed in
+  // Function that would ideally submit the review. Here it is just an alert with the details the user has typed in
   function submitReview() {
     alert(
       `Review submitted.
@@ -21,7 +21,7 @@ const FeedbackScreen = () => {
   const [reviewBody, setReviewBody] = useState("");
 
   return (
-    <View style={styles.feedbackScreen}>
+    <View style={styles.containerView}>
       {/* Feedback window */}
       <View style={styles.feedbackWindow}>
         {/* Rating view */}
@@ -49,7 +49,7 @@ const FeedbackScreen = () => {
         />
 
         {/* Review title view */}
-        <View style={styles.reviewTitleView}>
+        <View style={styles.reviewTitleBodyView}>
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
@@ -63,7 +63,7 @@ const FeedbackScreen = () => {
         </View>
 
         {/* Body review view */}
-        <View style={styles.reviewBodyView}>
+        <View style={styles.reviewTitleBodyView}>
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
@@ -78,6 +78,7 @@ const FeedbackScreen = () => {
           />
         </View>
 
+        {/* Submit review button */}
         <CustomButton
           buttonName={"SUBMIT"}
           onPressIn={submitReview}
@@ -95,36 +96,31 @@ const FeedbackScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  feedbackScreen: {
+  containerView: {
     flex: 1,
     padding: 10,
     backgroundColor: colors.lightgray,
     justifyContent: "center",
   },
   feedbackWindow: {
+    backgroundColor: colors.white,
+    flexDirection: "column",
     padding: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: "#ddd",
-    borderBottomWidth: 1,
-    shadowColor: "#000000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.9,
-    shadowRadius: 3,
-    elevation: 50,
     marginTop: 10,
     marginLeft: 10,
     marginRight: 10,
-    backgroundColor: colors.white,
-    flexDirection: "column",
-    borderRadius: 10,
+    borderRadius: 15,
+    shadowColor: "#c6c6c6",
+    shadowOffset: { width: 5, height: 10 },
+    shadowRadius: 3,
+    elevation: 30,
   },
   ratingTitle: {
     textAlign: "center",
     fontSize: 22,
     marginBottom: 15,
   },
-  reviewTitleView: {
+  reviewTitleBodyView: {
     backgroundColor: colors.textInputBackground,
     borderRadius: 10,
     padding: 5,
@@ -135,12 +131,6 @@ const styles = StyleSheet.create({
     height: 35,
     padding: 5,
     fontSize: 16,
-  },
-  reviewBodyView: {
-    backgroundColor: colors.textInputBackground,
-    borderRadius: 10,
-    padding: 5,
-    marginBottom: 15,
   },
   reviewBodyInput: {
     paddingHorizontal: 10,

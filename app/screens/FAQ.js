@@ -1,13 +1,12 @@
 import React from "react";
 import { View, FlatList } from "react-native";
-import getFAQs from "../FAQDetails";
-import FAQList from "../components/FAQList";
+import getFAQs from "../FAQ-api";
+import FAQCard from "../components/FAQCard";
 import colors from "../assets/styles/colors";
 
 const FAQsScreen = () => {
-  let questionsAndAnswers = getFAQs();
-
   return (
+    // Container view
     <View
       style={{
         padding: 10,
@@ -15,10 +14,9 @@ const FAQsScreen = () => {
       }}
     >
       <FlatList
-        data={questionsAndAnswers}
-        style={{ marginTop: 20 }}
+        data={getFAQs()}
         renderItem={({ item }) => (
-          <FAQList
+          <FAQCard
             questionNumber={item.id}
             question={item.question}
             answer={item.answer}

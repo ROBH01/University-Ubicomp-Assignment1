@@ -4,26 +4,20 @@ import colors from "../assets/styles/colors";
 
 const CustomButton = ({ buttonName, onPressIn, height, width, disabled }) => {
   return (
-    <View
+    <Pressable
+      onPressIn={onPressIn}
+      disabled={disabled}
       style={{
+        borderRadius: 10,
+        backgroundColor: disabled ? "lightgray" : colors.blueTutton,
         height: height,
         width: width,
         alignSelf: "center",
         justifyContent: "center",
-        borderRadius: 15,
       }}
     >
-      <Pressable
-        onPressIn={onPressIn}
-        disabled={disabled}
-        style={{
-          borderRadius: 10,
-          backgroundColor: disabled ? "lightgray" : colors.blueTutton,
-        }}
-      >
-        <Text style={styles.buttonText}>{buttonName}</Text>
-      </Pressable>
-    </View>
+      <Text style={styles.buttonText}>{buttonName}</Text>
+    </Pressable>
   );
 };
 
@@ -31,10 +25,8 @@ const styles = StyleSheet.create({
   buttonText: {
     color: colors.white,
     textAlign: "center",
-    height: "100%",
-    width: "100%",
     textAlignVertical: "center",
-    fontSize: 15,
+    fontSize: 14,
   },
 });
 

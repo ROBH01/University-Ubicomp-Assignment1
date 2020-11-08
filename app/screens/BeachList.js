@@ -8,7 +8,7 @@ import {
   TextInput,
   Text,
 } from "react-native";
-import getBeaches from "../BeachDetails";
+import getBeaches from "../Beach-api";
 import ListItem from "../components/CustomRowList";
 import SearchBar from "../components/SearchBar";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
@@ -16,29 +16,11 @@ import { Icon } from "react-native-elements";
 import CustomModal from "../components/CustomModal";
 import { concat } from "react-native-reanimated";
 import { Picker } from "@react-native-picker/picker";
-import { useActionSheet } from "@expo/react-native-action-sheet";
+import colors from "../assets/styles/colors";
 
 const ListItemSeperator = () => {
   return <View style={styles.containerseparator} />;
 };
-
-function RowCardFavouriteAction(props) {
-  return (
-    <TouchableWithoutFeedback
-      onPress={props.onPress}
-      style={{
-        width: 70,
-        height: "100%",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <View>
-        <Icon name="star" type="font-awesome" size={30} color="gray"></Icon>
-      </View>
-    </TouchableWithoutFeedback>
-  );
-}
 
 const BeachListScreen = () => {
   const [beachData, setBeachData] = useState(getBeaches());
@@ -49,8 +31,44 @@ const BeachListScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [sortValue, setSortValue] = useState("A-Z");
 
+  function RowCardFavouriteAction({ onPress, beach }) {
+    let iconColour;
+
+    let isInFav = favBeaches.includes(beach);
+    //console.log(isInFav);
+    console.log("Whether is or not in fav: " + isInFav);
+    if (isInFav) {
+      iconColour = "orange";
+    } else {
+      iconColour = "gray";
+    }
+
+    return (
+      <TouchableWithoutFeedback
+        onPress={onPress}
+        style={{
+          width: 70,
+          height: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <View>
+          <Icon
+            name="star"
+            type="font-awesome"
+            size={30}
+            color={iconColour}
+          ></Icon>
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  }
+
   const handleSearch = (text) => {
+    // updating the search text
     setSearchText(text);
+
     let beaches = getBeaches();
     let newBeachData = beaches;
     if (text) {
@@ -76,21 +94,24 @@ const BeachListScreen = () => {
 
   const handleFavourite = (item) => {
     if (favBeaches.includes(item)) {
-      alert(`${item.beachName} already added to favourites`);
+      //alert(`${item.beachName} removed from favourites`);
+      console.log(`${item.beachName} removed`);
+      let indexToDelete = item.id;
+      console.log("Index to delete: " + indexToDelete);
+      favBeaches.splice(indexToDelete, 1);
+
+      //setFavBeaches(newFavBeaches);
     } else {
-      let NewFavBeaches = favBeaches.concat(item);
-      setFavBeaches(NewFavBeaches);
-      alert(`${item.beachName} added to favourites`);
+      let newFavBeaches = favBeaches.concat(item);
+      setFavBeaches(newFavBeaches);
+      //alert(`${item.beachName} added to favourites`);
+      console.log(`${item.beachName} added`);
     }
   };
 
-  const xt = () => {
+  const showHideFavouriteBeaches = () => {
     if (!pressed) {
       setPressed(true);
-      // if (favBeaches.length === 0) {
-      //   setBeachData(favBeaches);
-      //   alert("You haven't added any beaches to favourite");
-      // }
       setBeachData(favBeaches);
     } else {
       setPressed(false);
@@ -99,9 +120,11 @@ const BeachListScreen = () => {
   };
 
   const sortBeaches = (itemValue) => {
+    // setting to display choice
     setSortValue(itemValue);
-    let beaches = getBeaches();
 
+    // sort based on the selection
+    let beaches = getBeaches();
     if (itemValue === "alphabetically") {
       setBeachData(beaches);
     } else if (itemValue === "busy") {
@@ -127,34 +150,21 @@ const BeachListScreen = () => {
     }
   };
 
+  console.log("Length: " + favBeaches.length);
+
   return (
+    // Container View
     <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-          marginLeft: 10,
-          marginRight: 10,
-          marginBottom: 5,
-        }}
-      >
+      {/* Top Bar view */}
+      <View style={styles.topBarView}>
+        {/* Search view component */}
         <SearchBar
           value={searchText}
           handleSearch={handleSearch}
           deleteSearchText={deleteSearchText}
         />
-        <View
-          style={{
-            width: 165,
-            height: 35,
-            backgroundColor: "white",
-            borderRadius: 40,
-            justifyContent: "center",
-            alignItems: "center",
-            marginRight: 10,
-          }}
-        >
+        {/* Picker used to sort the beaches */}
+        <View style={styles.pickerView}>
           <Picker
             selectedValue={sortValue}
             mode="dropdown"
@@ -175,20 +185,19 @@ const BeachListScreen = () => {
           </Picker>
         </View>
 
+        {/* Show/Hide favourite beaches */}
         <View>
-          {/* <Text>Favourite</Text> */}
-
-          {/* <Icon
+          <Icon
             name="star"
             type="font-awesome"
             size={35}
             color={pressed ? "orange" : "gray"}
-            onPress={xt} //This is the best way!!! Make current view display fav beaches when clicked!
-            //onPress={() => setModalVisible(true)}
-          ></Icon> */}
+            onPress={showHideFavouriteBeaches}
+          ></Icon>
         </View>
       </View>
 
+      {/* Flat list comonent displaying the beaches */}
       <FlatList
         data={beachData}
         keyExtractor={(item) => item.id}
@@ -213,7 +222,10 @@ const BeachListScreen = () => {
             longitudeParking={item.longitudeParking}
             //onPress={() => exampleOnPress(item)} //need still to pass this and render actions?
             renderRightActions={() => (
-              <RowCardFavouriteAction onPress={() => handleFavourite(item)} />
+              <RowCardFavouriteAction
+                onPress={() => handleFavourite(item)}
+                beach={item}
+              />
             )}
           />
         )}
@@ -225,9 +237,27 @@ const BeachListScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
+    //width: "50%",
     //marginTop: 10,
     backgroundColor: "#DEDEDE",
+  },
+  topBarView: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 5,
+    //backgroundColor: "pink",
+  },
+  pickerView: {
+    width: 165,
+    height: 35,
+    backgroundColor: colors.white,
+    borderRadius: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
   },
   containerseparator: {
     width: "100%",

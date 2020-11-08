@@ -3,9 +3,9 @@ import { StyleSheet, Text, View } from "react-native";
 import colors from "../assets/styles/colors";
 import appStyles from "../assets/styles/style-config";
 
-const FAQList = ({ questionNumber, question, answer }) => {
+const FAQCard = ({ questionNumber, question, answer }) => {
   return (
-    <View style={styles.faqRowCard}>
+    <View style={styles.faqCard}>
       <View>
         <Text style={styles.question}>
           Q{parseInt(questionNumber) + 1}. {question}
@@ -20,7 +20,7 @@ const FAQList = ({ questionNumber, question, answer }) => {
 };
 
 const styles = StyleSheet.create({
-  faqRowCard: {
+  faqCard: {
     paddingTop: 5,
     paddingBottom: 10,
     paddingLeft: 10,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   question: {
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 15,
     color: colors.title,
   },
   answer: {
@@ -43,4 +43,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FAQList;
+export default FAQCard;

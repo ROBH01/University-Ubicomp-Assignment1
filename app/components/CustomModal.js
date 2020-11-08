@@ -1,33 +1,13 @@
 //start working on a custom modal
 
 import React from "react";
-import { Text, View, Image } from "react-native";
-import { Icon } from "react-native-elements";
+import { Text, View, Image, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
 import colors from "../assets/styles/colors";
 import openMap from "react-native-open-maps";
 import CustomLineSeparator from "../components/LineSeparator";
 import CustomButton from "../components/CustomButton";
-
-// This component is used to display the different information shown in the modal
-const TextInfoComponent = ({ title, value }) => {
-  return (
-    <Text
-      style={{
-        textAlign: "center",
-        backgroundColor:
-          value === "Yes" ? colors.greenTextStatus : colors.redTextStatus,
-        borderRadius: 30,
-        alignSelf: "center",
-        width: "30%",
-        padding: 3,
-        fontSize: 13,
-      }}
-    >
-      {title}
-    </Text>
-  );
-};
+import CustomisedCircle from "./Circle";
 
 // This component is a customised modal, adapted to display the beach data when a beach is clicked
 const CustomModal = ({
@@ -49,39 +29,47 @@ const CustomModal = ({
   modalVisible,
   closeModal,
 }) => {
-  function TravelToBeach() {
+  // This component is used to display the different binary coloured information shown in the modal
+  const TextInfoComponent = ({ title, value }) => {
+    return (
+      <Text
+        style={{
+          textAlign: "center",
+          backgroundColor:
+            value === "Yes" ? colors.greenTextStatus : colors.redTextStatus,
+          borderRadius: 2,
+          alignSelf: "center",
+          width: "32%",
+          padding: 5,
+          fontSize: 13,
+        }}
+      >
+        {title}
+      </Text>
+    );
+  };
+
+  function travelToBeach() {
     openMap({
       travelType: "drive",
       end: `${latitude} ${longitude}`,
     });
   }
 
-  const AdditionalInfo = () => {
-    if (!warningInfo) {
-      warningInfo = "No additional information is available";
-    }
-    return (
-      <Text
-        style={{
-          fontSize: 14,
-          padding: 2,
-          width: "100%",
-          alignSelf: "center",
-          borderRadius: 15,
-          textAlign: "center",
-        }}
-      >
-        {warningInfo}
-      </Text>
-    );
-  };
-
-  function TravelToNearestParking() {
+  function travelToNearestParking() {
     openMap({
       travelType: "drive",
       end: `${latitudeParking} ${longitudeParking}`,
     });
   }
+
+  // This component displays additional info about each beach, if available
+  const AdditionalInfo = () => {
+    if (!warningInfo) {
+      warningInfo = "No additional information is available";
+    }
+    return <Text style={styles.textualInformationText}>{warningInfo}</Text>;
+  };
 
   return (
     <Modal
@@ -96,29 +84,13 @@ const CustomModal = ({
       animationOutTiming={500}
       onSwipeComplete={closeModal}
     >
-      {/* Main modal view */}
-      <View
-        style={{
-          borderRadius: 20,
-          paddingTop: 2,
-          paddingBottom: 2,
-          paddingLeft: 10,
-          paddingRight: 10,
-          justifyContent: "space-evenly",
-          backgroundColor: colors.lightgray,
-        }}
-      >
-        {/* Beach name view */}
-        <View>
-          <Text
-            style={{ fontSize: 22, fontWeight: "bold", alignSelf: "center" }}
-          >
-            {beachName}
-          </Text>
-        </View>
+      {/* Modal container */}
+      <View style={styles.modalContainer}>
+        {/* Beach title */}
+        <Text style={styles.titleBeach}>{beachName}</Text>
 
         {/* Image view */}
-        <View style={{ height: "45%", justifyContent: "space-evenly" }}>
+        <View style={styles.imageView}>
           <Image
             borderRadius={10}
             source={imagePath}
@@ -126,86 +98,56 @@ const CustomModal = ({
           />
         </View>
 
-        {/* Status view */}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-            Status: {beachStatus}
-          </Text>
-          <View
-            style={{
-              width: 25,
-              height: 25,
-              alignSelf: "center",
-              marginLeft: 10,
-              borderRadius: 30,
-              backgroundColor: statusColour,
-            }}
+        {/* Google maps navigation buttons */}
+        <View style={styles.navigationButtonsView}>
+          <CustomButton
+            buttonName={"DIRECTIONS"}
+            onPressIn={travelToBeach}
+            height={30}
+            width={"48%"}
+          />
+          <CustomButton
+            buttonName={"NEAREST PARKING"}
+            onPressIn={travelToNearestParking}
+            height={30}
+            width={"48%"}
           />
         </View>
 
-        {/* Additional Info View */}
-        <View
-          style={{
-            justifyContent: "space-evenly",
-            borderRadius: 20,
-            padding: 5,
-          }}
-        >
-          {/* Short info view row 1*/}
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-              padding: 5,
-            }}
-          >
+        {/* Status view */}
+        <View style={styles.statusView}>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+            Status: {beachStatus}
+          </Text>
+
+          <CustomisedCircle
+            width={25}
+            height={25}
+            borderRadius={30}
+            backgroundColor={statusColour}
+            marginLeft={10}
+            alignSelf={"center"}
+          />
+        </View>
+
+        {/* Stats info View */}
+        <View style={styles.statsInfoView}>
+          {/* Binary coloured stats info row 1 */}
+          <View style={styles.binaryColouredRow}>
             <TextInfoComponent title="Lifeguarded" value={lifeguarded} />
             <TextInfoComponent title="Public Toilets" value={publicToilets} />
             <TextInfoComponent title="Cycling" value={cycling} />
           </View>
 
-          {/* Short info row 2 */}
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-around",
-              marginTop: 5,
-            }}
-          >
+          {/* Binary coloured stats info row 2 */}
+          <View style={styles.binaryColouredRow}>
             <TextInfoComponent title="Dog Walking" value={dogWalking} />
           </View>
 
-          {/* Extended into */}
-          <View
-            style={{
-              flexDirection: "column",
-              justifyContent: "space-between",
-              marginTop: 10,
-              marginBottom: 5,
-            }}
-          >
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 14,
-                marginBottom: 2,
-              }}
-            >
-              BBQ: {bbq}
-            </Text>
-            <Text
-              style={{
-                textAlign: "center",
-
-                fontSize: 14,
-              }}
-            >
+          {/* Textual information view */}
+          <View style={styles.textualInformationView}>
+            <Text style={styles.textualInformationText}>BBQ: {bbq}</Text>
+            <Text style={styles.textualInformationText}>
               {parkingAvailability === "No parking at this beach"
                 ? parkingAvailability
                 : "Parking availability: " + parkingAvailability + "%"}
@@ -221,48 +163,77 @@ const CustomModal = ({
             marginBottom={5}
           />
 
+          {/* Component to show additional information if available */}
           <AdditionalInfo />
         </View>
 
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-around",
-          }}
-        >
-          <View
-            flexDirection="row"
-            style={{ alignItems: "center", maxWidth: "90%", marginBottom: 5 }}
-          >
-            <CustomButton
-              buttonName={"DIRECTIONS"}
-              onPressIn={TravelToBeach}
-              height={40}
-              width={"45%"}
-            />
-            <Icon
-              name="navigation"
-              type="material"
-              size={35}
-              color={colors.blueTutton}
-            ></Icon>
-            <CustomButton
-              buttonName={"NEAREST PARKING"}
-              onPressIn={TravelToNearestParking}
-              height={40}
-              width={"45%"}
-            />
-          </View>
-        </View>
+        {/* Close button */}
         <CustomButton
           buttonName={"CLOSE"}
           onPressIn={closeModal}
           height={30}
-          width={"60%"}
+          width={"40%"}
         />
       </View>
     </Modal>
   );
 };
+
+const styles = StyleSheet.create({
+  modalContainer: {
+    borderRadius: 15,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    justifyContent: "space-between",
+    backgroundColor: colors.lightgray,
+  },
+  titleBeach: {
+    fontSize: 22,
+    fontWeight: "bold",
+    alignSelf: "center",
+  },
+  imageView: {
+    height: "40%",
+    justifyContent: "space-evenly",
+    marginBottom: 5,
+  },
+  navigationButtonsView: {
+    alignItems: "center",
+    marginBottom: 5,
+    justifyContent: "space-around",
+    flexDirection: "row",
+  },
+  statusView: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  statsInfoView: {
+    justifyContent: "space-evenly",
+    borderRadius: 20,
+    padding: 5,
+    marginTop: 5,
+    backgroundColor: "lightgray",
+  },
+  binaryColouredRow: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 5,
+    //backgroundColor: "green",
+  },
+  textualInformationView: {
+    flexDirection: "column",
+    justifyContent: "space-between",
+    marginTop: 5,
+    marginBottom: 5,
+    //backgroundColor: "yellow",
+  },
+  textualInformationText: {
+    textAlign: "center",
+    fontSize: 14,
+  },
+});
 
 export default CustomModal;

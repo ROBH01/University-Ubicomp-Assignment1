@@ -4,6 +4,7 @@ import { Icon } from "react-native-elements";
 import CustomModal from "../components/CustomModal";
 import colors from "../assets/styles/colors";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+import CustomisedCircle from "./Circle";
 
 const ListItem = ({
   beachName,
@@ -145,43 +146,26 @@ const ListItem = ({
             </View>
           </View>
 
-          <View style={styles.semaphor}>
-            <View
-              style={{
-                width: 20,
-                height: 20,
-                borderRadius: 10,
-                backgroundColor: semaphorRed,
-              }}
+          {/* Semaphor view */}
+          <View style={styles.semaphorView}>
+            <CustomisedCircle
+              width={20}
+              height={20}
+              borderRadius={10}
+              backgroundColor={semaphorRed}
             />
-            <View
-              style={{
-                width: 20,
-                height: 20,
-                borderRadius: 10,
-                backgroundColor: semaphorAmber,
-              }}
+            <CustomisedCircle
+              width={20}
+              height={20}
+              borderRadius={10}
+              backgroundColor={semaphorAmber}
             />
-            <View
-              style={{
-                width: 20,
-                height: 20,
-                borderRadius: 10,
-                backgroundColor: semaphorGreen,
-              }}
+            <CustomisedCircle
+              width={20}
+              height={20}
+              borderRadius={10}
+              backgroundColor={semaphorGreen}
             />
-            {/* <Image 
-            source={redImageSource}
-            style= {{ width: 20, height: 20}}
-            />
-          <Image 
-            source={amberImageSource}
-            style= {{ width: 20, height: 21}}
-            />
-          <Image 
-            source={greenImageSource}
-            style= {{ width: 20, height: 20}}
-            /> */}
           </View>
         </View>
       </TouchableOpacity>
@@ -199,7 +183,6 @@ const styles = StyleSheet.create({
     padding: 2,
     marginBottom: 10,
     backgroundColor: "#f6f6f6",
-    //marginTop: 10,
     marginLeft: 10,
     marginRight: 10,
     flexDirection: "row",
@@ -218,11 +201,10 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: "flex-start",
   },
-  semaphor: {
+  semaphorView: {
     flexDirection: "column",
     justifyContent: "space-evenly",
     alignItems: "center",
-    // backgroundColor: "#f6f6f6", //'#f6f6f6',
     width: "6%",
     borderRadius: 30,
   },

@@ -1,4 +1,4 @@
-// This file contains all the data about the beaches
+// This file contains all the data about each beach
 
 const beaches = [
   {
