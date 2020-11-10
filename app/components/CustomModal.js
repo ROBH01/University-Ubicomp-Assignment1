@@ -8,8 +8,9 @@ import openMap from "react-native-open-maps";
 import CustomLineSeparator from "../components/LineSeparator";
 import CustomButton from "../components/CustomButton";
 import CustomisedCircle from "./Circle";
+import appStyles from "../assets/styles/style-config";
 
-// This component is a customised modal, adapted to display the beach data when a beach is clicked
+// This is a custom modal, adapted to display the beach data when a beach is clicked
 const CustomModal = ({
   beachName,
   statusColour,
@@ -29,14 +30,16 @@ const CustomModal = ({
   modalVisible,
   closeModal,
 }) => {
-  // This component is used to display the different binary coloured information shown in the modal
+  // This component is used to display the different binary coloured information shown in the modal by using the same style for multiple Text components
   const TextInfoComponent = ({ title, value }) => {
     return (
       <Text
         style={{
           textAlign: "center",
           backgroundColor:
-            value === "Yes" ? colors.greenTextStatus : colors.redTextStatus,
+            value === "Yes"
+              ? colors.greenBinaryStatusBackround
+              : colors.redBinaryStatusBackround,
           borderRadius: 2,
           alignSelf: "center",
           width: "32%",
@@ -92,7 +95,7 @@ const CustomModal = ({
         {/* Image view */}
         <View style={styles.imageView}>
           <Image
-            borderRadius={10}
+            borderRadius={appStyles.borderRadius.borderRadius}
             source={imagePath}
             style={{ width: "100%", height: "100%" }}
           />
@@ -102,13 +105,13 @@ const CustomModal = ({
         <View style={styles.navigationButtonsView}>
           <CustomButton
             buttonName={"DIRECTIONS"}
-            onPressIn={travelToBeach}
+            onPressOut={travelToBeach}
             height={30}
             width={"48%"}
           />
           <CustomButton
             buttonName={"NEAREST PARKING"}
-            onPressIn={travelToNearestParking}
+            onPressOut={travelToNearestParking}
             height={30}
             width={"48%"}
           />
@@ -170,7 +173,7 @@ const CustomModal = ({
         {/* Close button */}
         <CustomButton
           buttonName={"CLOSE"}
-          onPressIn={closeModal}
+          onPressOut={closeModal}
           height={30}
           width={"40%"}
         />
@@ -181,11 +184,11 @@ const CustomModal = ({
 
 const styles = StyleSheet.create({
   modalContainer: {
-    borderRadius: 15,
+    paddingLeft: appStyles.screenContainerStyle.paddingLeft,
+    paddingRight: appStyles.screenContainerStyle.paddingRight,
+    borderRadius: appStyles.borderRadius.borderRadius,
     paddingTop: 5,
     paddingBottom: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
     justifyContent: "space-between",
     backgroundColor: colors.lightgray,
   },
@@ -202,7 +205,7 @@ const styles = StyleSheet.create({
   navigationButtonsView: {
     alignItems: "center",
     marginBottom: 5,
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     flexDirection: "row",
   },
   statusView: {
@@ -212,23 +215,21 @@ const styles = StyleSheet.create({
   },
   statsInfoView: {
     justifyContent: "space-evenly",
-    borderRadius: 20,
+    borderRadius: appStyles.borderRadius.borderRadius,
     padding: 5,
     marginTop: 5,
-    backgroundColor: "lightgray",
+    backgroundColor: colors.modalStatsInfoView,
   },
   binaryColouredRow: {
     flexDirection: "row",
     justifyContent: "space-around",
     padding: 5,
-    //backgroundColor: "green",
   },
   textualInformationView: {
     flexDirection: "column",
     justifyContent: "space-between",
     marginTop: 5,
     marginBottom: 5,
-    //backgroundColor: "yellow",
   },
   textualInformationText: {
     textAlign: "center",

@@ -1,8 +1,10 @@
 import React from "react";
-import { TextInput, View } from "react-native";
+import { TextInput, View, StyleSheet } from "react-native";
 import { Icon } from "react-native-elements";
+import appStyles from "../assets/styles/style-config";
 
 const SearchBar = ({ value, handleSearch, deleteSearchText }) => {
+  // Used to add an icon that is displayed along the text input when the text input has a value. The onPress will clear the value if pressed
   const DeleteIcon = () => {
     if (value !== "") {
       return (
@@ -19,38 +21,40 @@ const SearchBar = ({ value, handleSearch, deleteSearchText }) => {
   };
 
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignContent: "center",
-        margin: 10,
-        borderRadius: 15,
-        backgroundColor: "white",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "35%",
-      }}
-    >
+    <View style={styles.searchView}>
       <TextInput
         autoCapitalize="none"
         autoCorrect={false}
-        //clearButtonMode="always"
         value={value}
         onChangeText={(text) => handleSearch(text)}
-        placeholder="Search beach"
+        placeholder="Search..."
         maxLength={15}
         keyboardType="ascii-capable"
-        style={{
-          flex: 0.9,
-          paddingHorizontal: 10,
-          height: 35,
-          padding: 5,
-          fontSize: 15,
-        }}
+        style={styles.textInput}
       />
+      {/* Add x to clear text input */}
       <DeleteIcon />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  searchView: {
+    flexDirection: "row",
+    alignContent: "center",
+    borderRadius: appStyles.borderRadius.borderRadius,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "35%",
+  },
+  textInput: {
+    flex: 0.9,
+    paddingHorizontal: 10,
+    height: 35,
+    padding: 5,
+    fontSize: 15,
+  },
+});
 
 export default SearchBar;

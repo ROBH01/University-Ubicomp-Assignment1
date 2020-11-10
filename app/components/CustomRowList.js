@@ -5,8 +5,9 @@ import CustomModal from "../components/CustomModal";
 import colors from "../assets/styles/colors";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import CustomisedCircle from "./Circle";
+import appStyles from "../assets/styles/style-config";
 
-const ListItem = ({
+const RowCard = ({
   beachName,
   beachStatus,
   lifeguarded,
@@ -21,10 +22,10 @@ const ListItem = ({
   longitude,
   latitudeParking,
   longitudeParking,
-  onPress,
   renderRightActions,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const iconSize = 18;
   const lightGrayColour = colors.unavailableGray;
   let semaphorRed = lightGrayColour;
   let semaphorAmber = lightGrayColour;
@@ -35,7 +36,7 @@ const ListItem = ({
     semaphorRed = colors.redSemaphor;
     statusColour = semaphorRed;
   } else if (beachStatus === "Congested, stay alert") {
-    semaphorAmber = colors.amberSemaphore;
+    semaphorAmber = colors.amberSemaphor;
     statusColour = semaphorAmber;
   } else if (beachStatus === "Low congestion") {
     semaphorGreen = colors.greenSemaphor;
@@ -45,7 +46,6 @@ const ListItem = ({
   }
 
   return (
-    // here on the onPress could get a function from its "props" e.g. props.[name prop passed into this prop component]
     <Swipeable
       overshootRight={false}
       friction={2}
@@ -78,22 +78,23 @@ const ListItem = ({
             closeModal={() => setModalVisible(false)}
           />
 
-          {/* This view renders the image */}
+          {/* This view renders the beach image */}
           <View style={styles.image}>
             <Image
-              borderRadius={10}
+              borderRadius={appStyles.borderRadius.borderRadius}
               source={imagePath}
               style={{ width: "100%", height: "100%" }}
             />
           </View>
 
           {/* This view renders the beach name and the status */}
-          <View style={styles.info}>
-            <Text style={styles.headline}>{beachName}</Text>
+          <View style={styles.beachInfo}>
+            <Text style={styles.beachTitle}>{beachName}</Text>
             <Text style={{ marginTop: 5, fontSize: 15 }}>
               Status: {beachStatus}
             </Text>
 
+            {/* This view renders the icons */}
             <View
               style={{
                 flexDirection: "row",
@@ -104,33 +105,37 @@ const ListItem = ({
               <Icon
                 name="life-ring"
                 type="font-awesome"
-                size={18}
-                color={lifeguarded === "Yes" ? colors.iconActive : colors.gray}
+                size={iconSize}
+                color={
+                  lifeguarded === "Yes" ? colors.blueIconActive : colors.gray
+                }
               ></Icon>
               <Icon
                 name="wc"
-                size={18}
+                size={iconSize}
                 color={
-                  publicToilets === "Yes" ? colors.iconActive : colors.gray
+                  publicToilets === "Yes" ? colors.blueIconActive : colors.gray
                 }
               ></Icon>
               <Icon
                 name="bicycle"
                 type="font-awesome"
-                size={18}
-                color={cycling === "Yes" ? colors.iconActive : colors.gray}
+                size={iconSize}
+                color={cycling === "Yes" ? colors.blueIconActive : colors.gray}
               ></Icon>
               <Icon
                 name="dog-service"
                 type="material-community"
-                size={18}
-                color={dogWalking === "Yes" ? colors.iconActive : colors.gray}
+                size={iconSize}
+                color={
+                  dogWalking === "Yes" ? colors.blueIconActive : colors.gray
+                }
               ></Icon>
               <Icon
                 name="grill"
                 type="material-community"
-                size={18}
-                color={bbq === "No" ? colors.gray : colors.iconActive}
+                size={iconSize}
+                color={bbq === "No" ? colors.gray : colors.blueIconActive}
               ></Icon>
               <Icon
                 name="local-parking"
@@ -138,10 +143,10 @@ const ListItem = ({
                 backgroundColor={
                   parkingAvailability === "No parking at this beach"
                     ? colors.gray
-                    : colors.iconActive
+                    : colors.blueIconActive
                 }
-                size={18}
-                color="white"
+                size={iconSize}
+                color={colors.white}
               ></Icon>
             </View>
           </View>
@@ -174,29 +179,27 @@ const ListItem = ({
 };
 
 const styles = StyleSheet.create({
-  headline: {
-    fontWeight: "bold",
-    fontSize: 16,
-  },
   rowCard: {
     height: 110,
     padding: 2,
     marginBottom: 10,
-    backgroundColor: "#f6f6f6",
-    marginLeft: 10,
-    marginRight: 10,
+    backgroundColor: colors.white,
     flexDirection: "row",
-    borderRadius: 15,
+    borderRadius: appStyles.borderRadius.borderRadius,
     justifyContent: "flex-start",
+  },
+  beachTitle: {
+    fontWeight: "bold",
+    fontSize: 16,
   },
   image: {
     width: "30%",
     padding: 5,
     overflow: "hidden",
   },
-  info: {
+  beachInfo: {
     width: "64%",
-    backgroundColor: "#f6f6f6",
+    backgroundColor: colors.white,
     flexDirection: "column",
     padding: 10,
     justifyContent: "flex-start",
@@ -210,4 +213,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListItem;
+export default RowCard;

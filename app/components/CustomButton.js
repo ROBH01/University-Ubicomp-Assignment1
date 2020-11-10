@@ -1,33 +1,32 @@
 import React from "react";
-import { Text, View, Pressable, StyleSheet } from "react-native";
+import { Text, Pressable } from "react-native";
 import colors from "../assets/styles/colors";
+import appStyles from "../assets/styles/style-config";
 
-const CustomButton = ({ buttonName, onPressIn, height, width, disabled }) => {
+// This is a customised button that uses Pressable
+const CustomButton = ({ buttonName, onPressOut, height, width, disabled }) => {
   return (
     <Pressable
-      onPressIn={onPressIn}
+      onPressOut={onPressOut}
       disabled={disabled}
-      style={{
-        borderRadius: 10,
-        backgroundColor: disabled ? "lightgray" : colors.blueTutton,
-        height: height,
-        width: width,
-        alignSelf: "center",
-        justifyContent: "center",
-      }}
+      //Followed example on React Native, Pressable component for the styling
+      style={({ pressed }) => [
+        {
+          borderRadius: 10,
+          backgroundColor: disabled ? colors.lightgray : colors.blueTutton,
+          height: height,
+          width: pressed ? parseInt(width) - 2 + "%" : width,
+          alignSelf: "center",
+          justifyContent: "center",
+          borderWidth: pressed ? 1 : 0.5,
+          borderColor: pressed ? "white" : "black",
+          elevation: 10,
+        },
+      ]}
     >
-      <Text style={styles.buttonText}>{buttonName}</Text>
+      <Text style={appStyles.buttonStyle}>{buttonName}</Text>
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({
-  buttonText: {
-    color: colors.white,
-    textAlign: "center",
-    textAlignVertical: "center",
-    fontSize: 14,
-  },
-});
 
 export default CustomButton;

@@ -1,26 +1,13 @@
-//add code that renders the beach screen showing a list of beaches in a row card style to the user
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Button,
-  TextInput,
-  Text,
-} from "react-native";
+import { StyleSheet, View, FlatList, Vibration } from "react-native";
 import getBeaches from "../Beach-api";
-import ListItem from "../components/CustomRowList";
+import RowCard from "../components/CustomRowList";
 import SearchBar from "../components/SearchBar";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Icon } from "react-native-elements";
-import CustomModal from "../components/CustomModal";
-import { concat } from "react-native-reanimated";
 import { Picker } from "@react-native-picker/picker";
 import colors from "../assets/styles/colors";
-
-const ListItemSeperator = () => {
-  return <View style={styles.containerseparator} />;
-};
+import appStyles from "../assets/styles/style-config";
 
 const BeachListScreen = () => {
   const [beachData, setBeachData] = useState(getBeaches());
@@ -28,21 +15,17 @@ const BeachListScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [favBeaches, setFavBeaches] = useState([]);
   const [pressed, setPressed] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
   const [sortValue, setSortValue] = useState("A-Z");
 
   function RowCardFavouriteAction({ onPress, beach }) {
     let iconColour;
 
     let isInFav = favBeaches.includes(beach);
-    //console.log(isInFav);
-    console.log("Whether is or not in fav: " + isInFav);
     if (isInFav) {
       iconColour = "orange";
     } else {
       iconColour = "gray";
     }
-
     return (
       <TouchableWithoutFeedback
         onPress={onPress}
@@ -65,10 +48,10 @@ const BeachListScreen = () => {
     );
   }
 
+  // Code used as reference from lecture slides. It filters the beaches based on the incoming text as input
   const handleSearch = (text) => {
     // updating the search text
     setSearchText(text);
-
     let beaches = getBeaches();
     let newBeachData = beaches;
     if (text) {
@@ -90,22 +73,18 @@ const BeachListScreen = () => {
     setBeachData(getBeaches);
     setSortValue("A-Z");
     setSearchText("");
+    Vibration.vibrate(20);
   };
 
   const handleFavourite = (item) => {
     if (favBeaches.includes(item)) {
-      //alert(`${item.beachName} removed from favourites`);
-      console.log(`${item.beachName} removed`);
-      let indexToDelete = item.id;
-      console.log("Index to delete: " + indexToDelete);
-      favBeaches.splice(indexToDelete, 1);
-
-      //setFavBeaches(newFavBeaches);
+      // remove if already added
+      let newFavBeaches = favBeaches.splice(item.id);
+      setFavBeaches(newFavBeaches);
     } else {
+      // add if not already added
       let newFavBeaches = favBeaches.concat(item);
       setFavBeaches(newFavBeaches);
-      //alert(`${item.beachName} added to favourites`);
-      console.log(`${item.beachName} added`);
     }
   };
 
@@ -113,9 +92,11 @@ const BeachListScreen = () => {
     if (!pressed) {
       setPressed(true);
       setBeachData(favBeaches);
+      Vibration.vibrate(10);
     } else {
       setPressed(false);
       setBeachData(getBeaches());
+      Vibration.vibrate(10);
     }
   };
 
@@ -127,8 +108,10 @@ const BeachListScreen = () => {
     let beaches = getBeaches();
     if (itemValue === "alphabetically") {
       setBeachData(beaches);
-    } else if (itemValue === "busy") {
-      setBeachData(beaches.filter((beach) => beach.beachStatus === "Avoid"));
+    } else if (itemValue === "free") {
+      setBeachData(
+        beaches.filter((beach) => beach.beachStatus === "Low congestion")
+      );
     } else if (itemValue === "parking") {
       setBeachData(
         beaches.filter(
@@ -149,8 +132,6 @@ const BeachListScreen = () => {
       setBeachData(beaches.filter((beach) => beach.bbq !== "No"));
     }
   };
-
-  console.log("Length: " + favBeaches.length);
 
   return (
     // Container View
@@ -175,7 +156,7 @@ const BeachListScreen = () => {
             onValueChange={(itemValue) => sortBeaches(itemValue)}
           >
             <Picker.Item label="A-Z" value="alphabetically" />
-            <Picker.Item label="Busy beaches" value="busy" />
+            <Picker.Item label="Not busy" value="free" />
             <Picker.Item label="Car parking" value="parking" />
             <Picker.Item label="Lifeguarded" value="lifeguarded" />
             <Picker.Item label="Public toilets" value="toilets" />
@@ -197,15 +178,14 @@ const BeachListScreen = () => {
         </View>
       </View>
 
-      {/* Flat list comonent displaying the beaches */}
+      {/* Flat list comonent displaying the beaches using the Row Card */}
       <FlatList
         data={beachData}
         keyExtractor={(item) => item.id}
-        ItemSeparatorComponent={ListItemSeperator}
         refreshing={refreshing}
         onRefresh={refreshBeaches}
         renderItem={({ item }) => (
-          <ListItem
+          <RowCard
             beachName={item.beachName}
             beachStatus={item.beachStatus}
             lifeguarded={item.lifeguarded}
@@ -220,7 +200,6 @@ const BeachListScreen = () => {
             longitude={item.longitude}
             latitudeParking={item.latitudeParking}
             longitudeParking={item.longitudeParking}
-            //onPress={() => exampleOnPress(item)} //need still to pass this and render actions?
             renderRightActions={() => (
               <RowCardFavouriteAction
                 onPress={() => handleFavourite(item)}
@@ -236,37 +215,32 @@ const BeachListScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    //width: "50%",
-    //marginTop: 10,
-    backgroundColor: "#DEDEDE",
+    paddingBottom: 10,
+    paddingLeft: appStyles.screenContainerStyle.paddingLeft,
+    paddingRight: appStyles.screenContainerStyle.paddingRight,
+    flex: appStyles.screenContainerStyle.flex,
+    backgroundColor: colors.lightgray,
   },
   topBarView: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     alignItems: "center",
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 5,
-    //backgroundColor: "pink",
+    marginTop: 10,
+    marginBottom: 15,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   pickerView: {
     width: 165,
     height: 35,
     backgroundColor: colors.white,
-    borderRadius: 40,
+    borderRadius: appStyles.borderRadius.borderRadius,
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 10,
   },
   containerseparator: {
     width: "100%",
     height: 2,
-  },
-  screen: {
-    //marginTop: 40,
-    alignItems: "center",
-    backgroundColor: "pink",
   },
   title: {
     padding: 20,

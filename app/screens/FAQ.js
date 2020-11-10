@@ -3,13 +3,18 @@ import { View, FlatList } from "react-native";
 import getFAQs from "../FAQ-api";
 import FAQCard from "../components/FAQCard";
 import colors from "../assets/styles/colors";
+import appStyles from "../assets/styles/style-config";
 
 const FAQsScreen = () => {
   return (
     // Container view
     <View
       style={{
-        padding: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: appStyles.screenContainerStyle.paddingLeft,
+        paddingRight: appStyles.screenContainerStyle.paddingRight,
+        flex: appStyles.screenContainerStyle.flex,
         backgroundColor: colors.lightgray,
       }}
     >

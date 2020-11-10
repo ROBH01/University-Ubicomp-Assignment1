@@ -1,0 +1,80 @@
+REFERENCES:
+
+1. BCP Beach Check FAQ section:
+    Poole Tourism, Available from: https://www.pooletourism.com/dbimgs/FAQs%20Beach%20Check%20app.pdf [Accessed 09 November 2020]
+
+2. Pictures used in the application:
+    alum_chine >
+    Wikipedia, Available from: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Alum_Chine_Beach%2C_Bournemouth_%28460773%29_%289457233458%29.jpg/1024px-Alum_Chine_Beach%2C_Bournemouth_%28460773%29_%289457233458%29.jpg [Accessed 02 November 2020]
+
+    avon >
+    Nearest Beach, Available from: https://farm3.static.flickr.com/2837/9171412187_0b1fdf2da9_b.jpg [Accessed 02 November 2020]
+
+    boscombe_east >
+    Bournemouth Tourism, Available from: https://www.bournemouth.co.uk/things-to-do/boscombe-beach-p2497343 [Accessed 02 November 2020]
+
+    boscombe_west >
+    Dailymail, Boscombe beach, Available from: https://www.dailymail.co.uk/news/article-4836468/UK-weather-Temperatures-HALVE-24-hours-2C-today.html [Accessed 02 November 2020]
+
+    bournemouth_east >
+    Instagram, Available from: https://instagram.fltn2-1.fna.fbcdn.net/v/t51.2885-15/e35/s1080x1080/118455070_121101589468997_445270801119798822_n.jpg?_nc_ht=instagram.fltn2-1.fna.fbcdn.net&_nc_cat=105&_nc_ohc=9KU_3aD88zMAX8QyM89&_nc_tp=15&oh=0d4fa6d20484726ec38ab6c2ef9d1347&oe=5FC2B8D8 [Accessed 02 November 2020]
+
+    bournemouth_west >
+    Instagram, Available from: https://instagram.fltn2-1.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/s750x750/119893172_647536032831881_5167648704601939111_n.jpg?_nc_ht=instagram.fltn2-1.fna.fbcdn.net&_nc_cat=105&_nc_ohc=7-QXyYT9rRcAX-YyEoR&_nc_tp=24&oh=35d765458b1b4d929acb7d02937450ad&oe=5FC3B179 [Accessed 02 November 2020]
+
+    branksome_chine >
+    Nearestbeach, Available from: https://www.nearestbeach.co.uk/poole/poole-branksome-chine-beach-poole/ [Accessed 02 November 2020]
+
+    branksome_dene_chine > 
+    Reading, T., 2010. The Beachat Branksome Dene Chine [photograph]. Dorset: Flickr.com. Available from: https://www.flickr.com/photos/16801915@N06/4695746341/ [Accessed 02 November 2020]
+
+    canford_cliffs >
+    BCP Council Seafront, Available from: https://seafront.pooleprojects.net/canford-cliffs/ [Accessed 02 November 2020]
+
+    durley_chine >
+    Beautiful England, Available from: https://www.beautifulenglandphotos.uk/wp-content/uploads/2016/01/durley-chine-beach-bournemouth-8.jpg [Accessed 02 November 2020]
+
+    east_cliff >
+    Coastradar, Available from: https://coastradar.com/wp-content/uploads/2017/09/35282_East-Cliff-beach.jpg [Accessed 02 November 2020]
+
+    fishermans_walk >
+    Britishbeaches, Available from: https://britishbeaches.uk/img/beach/113/113-4027-o.jpg [Accessed 02 November 2020]
+
+    flaghead_chine >
+    BCP Council Seafront Development, Available from: https://seafront.pooleprojects.net/wp-content/uploads/2017/12/Flaghead-Beach-Huts-completed-2015-home-page.jpg [Accessed 02 November 2020]
+
+    friars_cliff >
+    Bournemouth Tourism, Available from: https://www.bournemouth.co.uk/imageresizer/?image=%2Fdmsimgs%2FIMG_20200609_155926_640524119.jpg&action=OpenGraph [Accessed 02 November 2020]
+
+    highcliffe >
+    Vrbo, Available from: https://odis.homeaway.com/odis/listing/21f8590a-e8eb-42cc-8c18-d0a0f0ec5f10.c10.jpg [Accessed 02 November 2020]
+
+    highcliffe_castle >
+    Visit Dorset, Available from: https://www.visit-dorset.com/imageresizer/?image=%2fdmsimgs%2fhighcliffe-castle-beach_1__1047867485.JPG&action=ProductDetail [Accessed 02 November 2020]
+
+    manor_steps >
+    Dorset Beaches, Available from: https://www.dorset-beaches.co.uk/public/photos/boscombe-beach.jpg [Accessed 02 November 2020]
+
+    middle_chine >
+    Bournemouth Guided Walkthrough Tours, Available from: http://bournemouthguidedwalkingtours.co.uk/media/bmth-beach-view.jpg [Accessed 02 November 2020]
+
+    mudeford_quay >
+    Visit Dorset, Available from: https://www.visit-dorset.com/imageresizer/?image=%2fdmsimgs%2fMudeford_Beach_Huts_JM_371538612.jpg&action=ProductDetail&crop=4D037F16B8DE28D6428DEA6C4E1FEB4C [Accessed 02 November 2020]
+
+    mudeford_sandspit >
+    Along Came Cherry, Available from: http://alongcamecherry.co.uk/wp-content/uploads/2016/07/mudeford-beach-huts-bournemouth-colourful-huts-dorset.png [Accessed 02 November 2020]
+
+    sandbanks >
+    Bournemouth Tourism, Available from: https://www.bournemouth.co.uk/imageresizer/?image=%2Fdmsimgs%2FSandbanks-26_print-min_171838873.jpg&action=ProductDetail [Accessed 02 November 2020]
+
+    shore_road >
+    BCP Council Seafront Development, Available from: https://seafront.pooleprojects.net/wp-content/uploads/2018/01/1000-x-563-Shore-Road-Beach.jpg [Accessed 02 November 2020]
+
+    solent >
+    Wikipedia, Available from: https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Bench_on_Solent_Beach_-_geograph.org.uk_-_1775922.jpg/800px-Bench_on_Solent_Beach_-_geograph.org.uk_-_1775922.jpg [Accessed 02 November 2020]
+
+    southbourne >
+    BCP Council Seafront Development, Available from: https://www.bournemouth.co.uk/imageresizer/?image=%2Fdmsimgs%2Fsouthbourne_beaches_resized_1994293694.jpg&action=ProductDetail [Accessed 02 November 2020]
+
+    splash >
+    Unsplash, Available from: https://unsplash.com/photos/8h8r60K28pA [Accessed on 10 November 2020]

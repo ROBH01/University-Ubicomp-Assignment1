@@ -3,9 +3,14 @@ import { StyleSheet, Text, View, TextInput } from "react-native";
 import StarRating from "react-native-star-rating";
 import CustomLineSeparator from "../components/LineSeparator";
 import colors from "../assets/styles/colors";
+import appStyles from "../assets/styles/style-config";
 import CustomButton from "../components/CustomButton";
 
 const FeedbackScreen = () => {
+  const [rating, setRating] = useState(0);
+  const [reviewTitle, setReviewTitle] = useState("");
+  const [reviewBody, setReviewBody] = useState("");
+
   // Function that would ideally submit the review. Here it is just an alert with the details the user has typed in
   function submitReview() {
     alert(
@@ -15,10 +20,6 @@ const FeedbackScreen = () => {
       \nReview body: ${reviewBody}`
     );
   }
-
-  const [rating, setRating] = useState(0);
-  const [reviewTitle, setReviewTitle] = useState("");
-  const [reviewBody, setReviewBody] = useState("");
 
   return (
     <View style={styles.containerView}>
@@ -49,7 +50,7 @@ const FeedbackScreen = () => {
         />
 
         {/* Review title view */}
-        <View style={styles.reviewTitleBodyView}>
+        <View style={styles.reviewInputBody}>
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
@@ -63,7 +64,7 @@ const FeedbackScreen = () => {
         </View>
 
         {/* Body review view */}
-        <View style={styles.reviewTitleBodyView}>
+        <View style={styles.reviewInputBody}>
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
@@ -81,7 +82,7 @@ const FeedbackScreen = () => {
         {/* Submit review button */}
         <CustomButton
           buttonName={"SUBMIT"}
-          onPressIn={submitReview}
+          onPressOut={submitReview}
           height={40}
           width={"45%"}
           disabled={
@@ -97,8 +98,11 @@ const FeedbackScreen = () => {
 
 const styles = StyleSheet.create({
   containerView: {
-    flex: 1,
-    padding: 10,
+    flex: appStyles.screenContainerStyle.flex,
+    paddingLeft: appStyles.screenContainerStyle.paddingLeft,
+    paddingRight: appStyles.screenContainerStyle.paddingRight,
+    paddingTop: 10,
+    paddingBottom: 10,
     backgroundColor: colors.lightgray,
     justifyContent: "center",
   },
@@ -107,9 +111,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     padding: 10,
     marginTop: 10,
-    marginLeft: 10,
-    marginRight: 10,
-    borderRadius: 15,
+    borderRadius: appStyles.borderRadius.borderRadius,
     shadowColor: "#c6c6c6",
     shadowOffset: { width: 5, height: 10 },
     shadowRadius: 3,
@@ -120,9 +122,9 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginBottom: 15,
   },
-  reviewTitleBodyView: {
-    backgroundColor: colors.textInputBackground,
-    borderRadius: 10,
+  reviewInputBody: {
+    backgroundColor: colors.inputBackground,
+    borderRadius: appStyles.borderRadius.borderRadius,
     padding: 5,
     marginBottom: 15,
   },
