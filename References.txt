@@ -78,3 +78,12 @@ REFERENCES:
 
     splash >
     Unsplash, Available from: https://unsplash.com/photos/8h8r60K28pA [Accessed on 10 November 2020]
+
+
+3. Components used as occasional reference and guidance:
+    Pressable, Available from: https://reactnative.dev/docs/pressable
+    Modal, Available from: https://reactnative.dev/docs/modal
+    react-native-open-maps, Available from: https://www.npmjs.com/package/react-native-open-maps
+    Swipeable, Available from: https://www.npmjs.com/package/react-native-swipeable
+    Picker, Available from: https://github.com/react-native-picker/picker
+    react-native-star-rating, Available from: https://www.npmjs.com/package/react-native-star-rating

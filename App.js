@@ -47,6 +47,16 @@ const HomeScreen = ({ navigation }) => {
           width={"80%"}
         />
       </View>
+
+      <Image
+        source={require("./app/assets/socialdistance.png")}
+        style={{
+          width: 100,
+          height: 60,
+          alignSelf: "center",
+          resizeMode: "contain",
+        }}
+      />
     </View>
   );
 };
@@ -110,7 +120,7 @@ export default function App() {
           component={HomeScreen}
           options={{
             title: "BCP Beach Check",
-            headerStyle: { backgroundColor: "white" },
+            headerStyle: { backgroundColor: colors.white },
             headerTitleStyle: {
               fontWeight: "bold",
               fontSize: 22,
