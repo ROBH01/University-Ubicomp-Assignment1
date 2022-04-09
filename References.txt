@@ -87,3 +87,4 @@ REFERENCES:
     Swipeable, Available from: https://www.npmjs.com/package/react-native-swipeable
     Picker, Available from: https://github.com/react-native-picker/picker
     react-native-star-rating, Available from: https://www.npmjs.com/package/react-native-star-rating
+    
