@@ -3,18 +3,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import colors from '../assets/styles/colors';
 import appStyles from '../assets/styles/style-config';
 
-const FAQCard = ({ questionNumber, question, answer }) => {
+const FAQCard = ({ faq }) => {
+    const { id: questionNumber, question, answer } = faq;
+
     return (
         <View style={styles.faqCard}>
-            <View>
-                <Text style={styles.question}>
-                    Q{parseInt(questionNumber) + 1}. {question}
-                </Text>
-            </View>
-
-            <View>
-                <Text style={styles.answer}>{answer}</Text>
-            </View>
+            <Text style={styles.question}>{`Q${questionNumber + 1}. ${question}`}</Text>
+            <Text style={styles.answer}>{answer}</Text>
         </View>
     );
 };

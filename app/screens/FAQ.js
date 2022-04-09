@@ -6,8 +6,9 @@ import colors from '../assets/styles/colors';
 import appStyles from '../assets/styles/style-config';
 
 const FAQsScreen = () => {
+    const faqs = getFAQs();
+
     return (
-        // Container view
         <View
             style={{
                 paddingTop: 10,
@@ -19,14 +20,9 @@ const FAQsScreen = () => {
             }}
         >
             <FlatList
-                data={getFAQs()}
-                renderItem={({ item }) => (
-                    <FAQCard
-                        questionNumber={item.id}
-                        question={item.question}
-                        answer={item.answer}
-                    />
-                )}
+                data={faqs}
+                keyExtractor={({ id }) => id}
+                renderItem={({ item: faq }) => <FAQCard faq={faq} />}
             />
         </View>
     );
