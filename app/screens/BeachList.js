@@ -52,7 +52,7 @@ const BeachListScreen = () => {
         if (text) {
             newBeachData = beaches.filter((item) => {
                 const textData = text.toLowerCase();
-                const itemData = item.beachName.toLowerCase();
+                const itemData = item.name.toLowerCase();
                 return itemData.indexOf(textData) > -1;
             });
         }
@@ -107,22 +107,18 @@ const BeachListScreen = () => {
             setBeachData(beaches.filter((beach) => beach.beachStatus === 'Low congestion'));
         } else if (itemValue === 'parking') {
             setBeachData(
-                beaches.filter(
-                    (beach) =>
-                        beach.parkingAvailability > 0 ||
-                        beach.parkingAvailability !== 'No parking at this beach',
-                ),
+                beaches.filter((beach) => beach.parkingAvailability !== 'No parking at this beach'),
             );
         } else if (itemValue === 'lifeguarded') {
-            setBeachData(beaches.filter((beach) => beach.lifeguarded === 'Yes'));
+            setBeachData(beaches.filter((beach) => beach.lifeguarded));
         } else if (itemValue === 'toilets') {
-            setBeachData(beaches.filter((beach) => beach.publicToilets === 'Yes'));
+            setBeachData(beaches.filter((beach) => beach.publicToilets));
         } else if (itemValue === 'dog') {
-            setBeachData(beaches.filter((beach) => beach.dogWalking === 'Yes'));
+            setBeachData(beaches.filter((beach) => beach.dogWalking));
         } else if (itemValue === 'cycling') {
-            setBeachData(beaches.filter((beach) => beach.cycling === 'Yes'));
+            setBeachData(beaches.filter((beach) => beach.cycling));
         } else if (itemValue === 'bbq') {
-            setBeachData(beaches.filter((beach) => beach.bbq !== 'No'));
+            setBeachData(beaches.filter((beach) => beach.bbq !== 'Not allowed'));
         }
     };
 
@@ -179,7 +175,7 @@ const BeachListScreen = () => {
                 onRefresh={refreshBeaches}
                 renderItem={({ item }) => (
                     <RowCard
-                        beachName={item.beachName}
+                        name={item.name}
                         beachStatus={item.beachStatus}
                         lifeguarded={item.lifeguarded}
                         publicToilets={item.publicToilets}

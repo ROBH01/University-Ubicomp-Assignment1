@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 
-// This component is used to draw a circle with the incoming props
 const CustomisedCircle = ({
     width,
     height,

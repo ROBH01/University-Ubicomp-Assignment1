@@ -12,7 +12,7 @@ import appStyles from '../assets/styles/style-config';
 
 // This is a custom modal, adapted to display the beach data when a beach is clicked
 const CustomModal = ({
-    beachName,
+    name,
     statusColour,
     beachStatus,
     lifeguarded,
@@ -36,10 +36,9 @@ const CustomModal = ({
             <Text
                 style={{
                     textAlign: 'center',
-                    backgroundColor:
-                        value === 'Yes'
-                            ? colors.greenBinaryStatusBackround
-                            : colors.redBinaryStatusBackround,
+                    backgroundColor: value
+                        ? colors.greenBinaryStatusBackround
+                        : colors.redBinaryStatusBackround,
                     borderRadius: 2,
                     alignSelf: 'center',
                     width: '32%',
@@ -90,7 +89,7 @@ const CustomModal = ({
             {/* Modal container */}
             <View style={styles.modalContainer}>
                 {/* Beach title */}
-                <Text style={styles.titleBeach}>{beachName}</Text>
+                <Text style={styles.titleBeach}>{name}</Text>
 
                 {/* Image view */}
                 <View style={styles.imageView}>
@@ -148,11 +147,7 @@ const CustomModal = ({
                     {/* Textual information view */}
                     <View style={styles.textualInformationView}>
                         <Text style={styles.textualInformationText}>BBQ: {bbq}</Text>
-                        <Text style={styles.textualInformationText}>
-                            {parkingAvailability === 'No parking at this beach'
-                                ? parkingAvailability
-                                : 'Parking availability: ' + parkingAvailability + '%'}
-                        </Text>
+                        <Text style={styles.textualInformationText}>{parkingAvailability}</Text>
                     </View>
 
                     <CustomLineSeparator

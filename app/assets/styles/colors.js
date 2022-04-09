@@ -1,5 +1,3 @@
-// Colours used within the application
-
 export default {
     white: '#fff',
     inputBackground: '#ededed',

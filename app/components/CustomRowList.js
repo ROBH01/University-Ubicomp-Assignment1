@@ -8,7 +8,7 @@ import CustomisedCircle from './Circle';
 import appStyles from '../assets/styles/style-config';
 
 const RowCard = ({
-    beachName,
+    name,
     beachStatus,
     lifeguarded,
     publicToilets,
@@ -59,7 +59,7 @@ const RowCard = ({
             >
                 <View style={styles.rowCard}>
                     <CustomModal
-                        beachName={beachName}
+                        name={name}
                         statusColour={statusColour}
                         beachStatus={beachStatus}
                         lifeguarded={lifeguarded}
@@ -89,7 +89,7 @@ const RowCard = ({
 
                     {/* This view renders the beach name and the status */}
                     <View style={styles.beachInfo}>
-                        <Text style={styles.beachTitle}>{beachName}</Text>
+                        <Text style={styles.beachTitle}>{name}</Text>
                         <Text style={{ marginTop: 5, fontSize: 15 }}>Status: {beachStatus}</Text>
 
                         {/* This view renders the icons */}
@@ -104,32 +104,30 @@ const RowCard = ({
                                 name="life-ring"
                                 type="font-awesome"
                                 size={iconSize}
-                                color={lifeguarded === 'Yes' ? colors.blueIconActive : colors.gray}
+                                color={lifeguarded ? colors.blueIconActive : colors.gray}
                             ></Icon>
                             <Icon
                                 name="wc"
                                 size={iconSize}
-                                color={
-                                    publicToilets === 'Yes' ? colors.blueIconActive : colors.gray
-                                }
+                                color={publicToilets ? colors.blueIconActive : colors.gray}
                             ></Icon>
                             <Icon
                                 name="bicycle"
                                 type="font-awesome"
                                 size={iconSize}
-                                color={cycling === 'Yes' ? colors.blueIconActive : colors.gray}
+                                color={cycling ? colors.blueIconActive : colors.gray}
                             ></Icon>
                             <Icon
                                 name="dog-service"
                                 type="material-community"
                                 size={iconSize}
-                                color={dogWalking === 'Yes' ? colors.blueIconActive : colors.gray}
+                                color={dogWalking ? colors.blueIconActive : colors.gray}
                             ></Icon>
                             <Icon
                                 name="grill"
                                 type="material-community"
                                 size={iconSize}
-                                color={bbq === 'No' ? colors.gray : colors.blueIconActive}
+                                color={bbq === 'Not allowed' ? colors.gray : colors.blueIconActive}
                             ></Icon>
                             <Icon
                                 name="local-parking"
