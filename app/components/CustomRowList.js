@@ -7,23 +7,24 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import CustomisedCircle from './Circle';
 import appStyles from '../assets/styles/style-config';
 
-const RowCard = ({
-    name,
-    beachStatus,
-    lifeguarded,
-    publicToilets,
-    parkingAvailability,
-    dogWalking,
-    cycling,
-    bbq,
-    warningInfo,
-    imagePath,
-    latitude,
-    longitude,
-    latitudeParking,
-    longitudeParking,
-    renderRightActions,
-}) => {
+const RowCard = ({ beach, renderRightActions }) => {
+    const {
+        name,
+        beachStatus,
+        lifeguarded,
+        publicToilets,
+        parkingAvailability,
+        dogWalking,
+        cycling,
+        bbq,
+        warningInfo,
+        imagePath,
+        latitude,
+        longitude,
+        latitudeParking,
+        longitudeParking,
+    } = beach;
+
     const [modalVisible, setModalVisible] = useState(false);
     const iconSize = 18;
     const lightGrayColour = colors.unavailableGray;
@@ -33,6 +34,7 @@ const RowCard = ({
     let statusColour = lightGrayColour;
 
     if (beachStatus === 'Avoid') {
+        // TODO: Add constants here instead.
         semaphorRed = colors.redSemaphor;
         statusColour = semaphorRed;
     } else if (beachStatus === 'Congested, stay alert') {
@@ -44,6 +46,19 @@ const RowCard = ({
     } else {
         statusColour = lightGrayColour;
     }
+
+    const parkingBackgroundColor =
+        parkingAvailability === 'No parking at this beach' ? colors.gray : colors.blueIconActive;
+
+    const lifeguardedIconColor = lifeguarded ? colors.blueIconActive : colors.gray;
+
+    const publicToiletsIconColor = publicToilets ? colors.blueIconActive : colors.gray;
+
+    const cyclingIconColor = cycling ? colors.blueIconActive : colors.gray;
+
+    const dogWalkingIconColor = dogWalking ? colors.blueIconActive : colors.gray;
+
+    const bbqIconColor = bbq === 'Not allowed' ? colors.gray : colors.blueIconActive;
 
     return (
         <Swipeable
@@ -104,39 +119,31 @@ const RowCard = ({
                                 name="life-ring"
                                 type="font-awesome"
                                 size={iconSize}
-                                color={lifeguarded ? colors.blueIconActive : colors.gray}
+                                color={lifeguardedIconColor}
                             ></Icon>
-                            <Icon
-                                name="wc"
-                                size={iconSize}
-                                color={publicToilets ? colors.blueIconActive : colors.gray}
-                            ></Icon>
+                            <Icon name="wc" size={iconSize} color={publicToiletsIconColor}></Icon>
                             <Icon
                                 name="bicycle"
                                 type="font-awesome"
                                 size={iconSize}
-                                color={cycling ? colors.blueIconActive : colors.gray}
+                                color={cyclingIconColor}
                             ></Icon>
                             <Icon
                                 name="dog-service"
                                 type="material-community"
                                 size={iconSize}
-                                color={dogWalking ? colors.blueIconActive : colors.gray}
+                                color={dogWalkingIconColor}
                             ></Icon>
                             <Icon
                                 name="grill"
                                 type="material-community"
                                 size={iconSize}
-                                color={bbq === 'Not allowed' ? colors.gray : colors.blueIconActive}
+                                color={bbqIconColor}
                             ></Icon>
                             <Icon
                                 name="local-parking"
                                 type="material"
-                                backgroundColor={
-                                    parkingAvailability === 'No parking at this beach'
-                                        ? colors.gray
-                                        : colors.blueIconActive
-                                }
+                                backgroundColor={parkingBackgroundColor}
                                 size={iconSize}
                                 color={colors.white}
                             ></Icon>
@@ -145,24 +152,9 @@ const RowCard = ({
 
                     {/* Semaphor view */}
                     <View style={styles.semaphorView}>
-                        <CustomisedCircle
-                            width={20}
-                            height={20}
-                            borderRadius={10}
-                            backgroundColor={semaphorRed}
-                        />
-                        <CustomisedCircle
-                            width={20}
-                            height={20}
-                            borderRadius={10}
-                            backgroundColor={semaphorAmber}
-                        />
-                        <CustomisedCircle
-                            width={20}
-                            height={20}
-                            borderRadius={10}
-                            backgroundColor={semaphorGreen}
-                        />
+                        <CustomisedCircle backgroundColor={semaphorRed} />
+                        <CustomisedCircle backgroundColor={semaphorAmber} />
+                        <CustomisedCircle backgroundColor={semaphorGreen} />
                     </View>
                 </View>
             </TouchableOpacity>

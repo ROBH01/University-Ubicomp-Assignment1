@@ -1,26 +1,15 @@
 import React from 'react';
 import { View } from 'react-native';
 
-const CustomisedCircle = ({
-    width,
-    height,
-    borderRadius,
-    backgroundColor,
-    marginLeft,
-    alignSelf,
-}) => {
-    return (
-        <View
-            style={{
-                width: width,
-                height: height,
-                borderRadius: borderRadius,
-                backgroundColor: backgroundColor,
-                marginLeft: marginLeft,
-                alignSelf: alignSelf,
-            }}
-        />
-    );
-};
+const CustomisedCircle = ({ width, height, borderRadius, backgroundColor }) => (
+    <View
+        style={{
+            width: width || 20,
+            height: height || 20,
+            borderRadius: borderRadius || 10,
+            backgroundColor,
+        }}
+    />
+);
 
 export default CustomisedCircle;

@@ -10,7 +10,6 @@ import CustomButton from '../components/CustomButton';
 import CustomisedCircle from './Circle';
 import appStyles from '../assets/styles/style-config';
 
-// This is a custom modal, adapted to display the beach data when a beach is clicked
 const CustomModal = ({
     name,
     statusColour,
@@ -31,47 +30,44 @@ const CustomModal = ({
     closeModal,
 }) => {
     // This component is used to display the different binary coloured information shown in the modal by using the same style for multiple Text components
-    const TextInfoComponent = ({ title, value }) => {
-        return (
-            <Text
-                style={{
-                    textAlign: 'center',
-                    backgroundColor: value
-                        ? colors.greenBinaryStatusBackround
-                        : colors.redBinaryStatusBackround,
-                    borderRadius: 2,
-                    alignSelf: 'center',
-                    width: '32%',
-                    padding: 5,
-                    fontSize: 13,
-                }}
-            >
-                {title}
-            </Text>
-        );
-    };
+    const TextInfoComponent = ({ title, value }) => (
+        <Text
+            style={{
+                textAlign: 'center',
+                backgroundColor: value
+                    ? colors.greenBinaryStatusBackround
+                    : colors.redBinaryStatusBackround,
+                borderRadius: 2,
+                alignSelf: 'center',
+                width: '32%',
+                padding: 5,
+                fontSize: 13,
+            }}
+        >
+            {title}
+        </Text>
+    );
 
-    function travelToBeach() {
+    const travelToBeach = () => {
         openMap({
             travelType: 'drive',
             end: `${latitude} ${longitude}`,
         });
-    }
+    };
 
-    function travelToNearestParking() {
+    const travelToNearestParking = () => {
         openMap({
             travelType: 'drive',
             end: `${latitudeParking} ${longitudeParking}`,
         });
-    }
+    };
 
     // This component displays additional info about each beach, if available
-    const AdditionalInfo = () => {
-        if (!warningInfo) {
-            warningInfo = 'No additional information is available';
-        }
-        return <Text style={styles.textualInformationText}>{warningInfo}</Text>;
-    };
+    const AdditionalInfo = () => (
+        <Text style={styles.textualInformationText}>
+            {warningInfo || 'No additional information is available'}
+        </Text>
+    );
 
     return (
         <Modal
@@ -118,15 +114,15 @@ const CustomModal = ({
 
                 {/* Status view */}
                 <View style={styles.statusView}>
-                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Status: {beachStatus}</Text>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', marginRight: 10 }}>
+                        Status: {beachStatus}
+                    </Text>
 
                     <CustomisedCircle
                         width={25}
                         height={25}
                         borderRadius={30}
                         backgroundColor={statusColour}
-                        marginLeft={10}
-                        alignSelf={'center'}
                     />
                 </View>
 
@@ -158,18 +154,11 @@ const CustomModal = ({
                         marginTop={5}
                         marginBottom={5}
                     />
-
-                    {/* Component to show additional information if available */}
                     <AdditionalInfo />
                 </View>
 
                 {/* Close button */}
-                <CustomButton
-                    buttonName={'CLOSE'}
-                    onPressOut={closeModal}
-                    height={30}
-                    width={'40%'}
-                />
+                <CustomButton buttonName="CLOSE" onPressOut={closeModal} height={30} width="40%" />
             </View>
         </Modal>
     );

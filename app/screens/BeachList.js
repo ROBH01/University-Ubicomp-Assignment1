@@ -10,25 +10,19 @@ import colors from '../assets/styles/colors';
 import appStyles from '../assets/styles/style-config';
 
 const BeachListScreen = () => {
-    const [beachData, setBeachData] = useState(getBeaches());
-    const [searchText, setSearchText] = useState('');
+    const [beachData, setBeachData] = useState(getBeaches);
+    const [search, setSearch] = useState('');
     const [refreshing, setRefreshing] = useState(false);
     const [favBeaches, setFavBeaches] = useState([]);
-    const [pressed, setPressed] = useState(false);
-    const [sortValue, setSortValue] = useState('A-Z');
+    const [showFavBeaches, setShowFavBeaches] = useState(false);
+    const [sortType, setSortType] = useState('A-Z');
 
-    function RowCardFavouriteAction({ onPress, beach }) {
-        let iconColour;
+    const RowCardFav = ({ onPress, beach }) => {
+        const iconColour = favBeaches.includes(beach) ? 'orange' : 'gray';
 
-        let isInFav = favBeaches.includes(beach);
-        if (isInFav) {
-            iconColour = 'orange';
-        } else {
-            iconColour = 'gray';
-        }
         return (
             <TouchableWithoutFeedback
-                onPress={onPress}
+                onPress={() => onPress(beach)}
                 style={{
                     width: 70,
                     height: '100%',
@@ -41,102 +35,99 @@ const BeachListScreen = () => {
                 </View>
             </TouchableWithoutFeedback>
         );
-    }
+    };
 
     // Code used as reference from lecture slides. It filters the beaches based on the incoming text as input
     const handleSearch = (text) => {
-        // updating the search text
-        setSearchText(text);
-        let beaches = getBeaches();
-        let newBeachData = beaches;
+        setSearch(text);
+        let newBeachData;
+
         if (text) {
-            newBeachData = beaches.filter((item) => {
+            newBeachData = beaches.filter((beach) => {
                 const textData = text.toLowerCase();
-                const itemData = item.name.toLowerCase();
+                const itemData = beach.name.toLowerCase();
+
                 return itemData.indexOf(textData) > -1;
             });
         }
         setBeachData(newBeachData);
     };
 
-    const deleteSearchText = () => {
-        setSearchText('');
+    const clearSearch = () => {
+        setSearch('');
         setBeachData(getBeaches);
     };
 
     const refreshBeaches = () => {
+        setSearch('');
+        setSortType('A-Z');
         setBeachData(getBeaches);
-        setSortValue('A-Z');
-        setSearchText('');
         Vibration.vibrate(20);
     };
 
-    const handleFavourite = (item) => {
-        if (favBeaches.includes(item)) {
+    const handleFavourite = (incomingBeach) => {
+        //FIXME: Save to local storage too!
+        if (favBeaches.includes(incomingBeach)) {
             // remove if already added
-            let newFavBeaches = favBeaches.splice(item.id);
-            setFavBeaches(newFavBeaches);
+            setFavBeaches(favBeaches.filter((beach) => beach !== incomingBeach));
         } else {
             // add if not already added
-            let newFavBeaches = favBeaches.concat(item);
-            setFavBeaches(newFavBeaches);
+            setFavBeaches((previousState) => [...previousState, incomingBeach]);
         }
     };
 
-    const showHideFavouriteBeaches = () => {
-        if (!pressed) {
-            setPressed(true);
+    const toggleFavBeaches = () => {
+        if (!showFavBeaches) {
+            setShowFavBeaches(true);
             setBeachData(favBeaches);
             Vibration.vibrate(10);
         } else {
-            setPressed(false);
-            setBeachData(getBeaches());
+            setShowFavBeaches(false);
+            setBeachData(getBeaches);
             Vibration.vibrate(10);
         }
     };
 
-    const sortBeaches = (itemValue) => {
-        // setting to display choice
-        setSortValue(itemValue);
+    const sortBeaches = (sortType) => {
+        setSortType(sortType);
 
-        // sort based on the selection
         let beaches = getBeaches();
-        if (itemValue === 'alphabetically') {
+
+        if (sortType === 'alphabetically') {
             setBeachData(beaches);
-        } else if (itemValue === 'free') {
+        } else if (sortType === 'free') {
             setBeachData(beaches.filter((beach) => beach.beachStatus === 'Low congestion'));
-        } else if (itemValue === 'parking') {
+        } else if (sortType === 'parking') {
             setBeachData(
                 beaches.filter((beach) => beach.parkingAvailability !== 'No parking at this beach'),
             );
-        } else if (itemValue === 'lifeguarded') {
+        } else if (sortType === 'lifeguarded') {
             setBeachData(beaches.filter((beach) => beach.lifeguarded));
-        } else if (itemValue === 'toilets') {
+        } else if (sortType === 'toilets') {
             setBeachData(beaches.filter((beach) => beach.publicToilets));
-        } else if (itemValue === 'dog') {
+        } else if (sortType === 'dog') {
             setBeachData(beaches.filter((beach) => beach.dogWalking));
-        } else if (itemValue === 'cycling') {
+        } else if (sortType === 'cycling') {
             setBeachData(beaches.filter((beach) => beach.cycling));
-        } else if (itemValue === 'bbq') {
+        } else if (sortType === 'bbq') {
             setBeachData(beaches.filter((beach) => beach.bbq !== 'Not allowed'));
         }
     };
 
     return (
-        // Container View
         <View style={styles.container}>
             {/* Top Bar view */}
             <View style={styles.topBarView}>
                 {/* Search view component */}
                 <SearchBar
-                    value={searchText}
+                    value={search}
                     handleSearch={handleSearch}
-                    deleteSearchText={deleteSearchText}
+                    deleteSearchText={clearSearch}
                 />
                 {/* Picker used to sort the beaches */}
                 <View style={styles.pickerView}>
                     <Picker
-                        selectedValue={sortValue}
+                        selectedValue={sortType}
                         mode="dropdown"
                         style={{
                             width: 165,
@@ -161,8 +152,8 @@ const BeachListScreen = () => {
                         name="star"
                         type="font-awesome"
                         size={35}
-                        color={pressed ? 'orange' : 'gray'}
-                        onPress={showHideFavouriteBeaches}
+                        color={showFavBeaches ? 'orange' : 'gray'}
+                        onPress={toggleFavBeaches}
                     ></Icon>
                 </View>
             </View>
@@ -170,30 +161,14 @@ const BeachListScreen = () => {
             {/* Flat list comonent displaying the beaches using the Row Card */}
             <FlatList
                 data={beachData}
-                keyExtractor={(item) => item.id}
+                //keyExtractor={({ id }) => id}
                 refreshing={refreshing}
                 onRefresh={refreshBeaches}
-                renderItem={({ item }) => (
+                renderItem={({ item: beach }) => (
                     <RowCard
-                        name={item.name}
-                        beachStatus={item.beachStatus}
-                        lifeguarded={item.lifeguarded}
-                        publicToilets={item.publicToilets}
-                        parkingAvailability={item.parkingAvailability}
-                        dogWalking={item.dogWalking}
-                        cycling={item.cycling}
-                        bbq={item.bbq}
-                        warningInfo={item.warningInfo}
-                        imagePath={item.imagePath}
-                        latitude={item.latitude}
-                        longitude={item.longitude}
-                        latitudeParking={item.latitudeParking}
-                        longitudeParking={item.longitudeParking}
+                        beach={beach}
                         renderRightActions={() => (
-                            <RowCardFavouriteAction
-                                onPress={() => handleFavourite(item)}
-                                beach={item}
-                            />
+                            <RowCardFav onPress={handleFavourite} beach={beach} />
                         )}
                     />
                 )}
