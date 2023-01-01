@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import BeachListScreen from './app/screens/BeachList';
 import { Icon, Tooltip } from 'react-native-elements';
-import FeedbackScreen from './app/screens/Feedback';
+import Feedback from './app/screens/Feedback';
 import Faqs from './app/screens/Faqs';
 import colors from './app/assets/styles/colors';
 import HomeScreen from './app/screens/HomeScreen';
@@ -75,11 +75,7 @@ export default function App() {
                     component={BeachListScreen}
                     options={{ title: 'Beach list' }}
                 />
-                <Root.Screen
-                    name="feedback"
-                    component={FeedbackScreen}
-                    options={{ title: 'Feedback' }}
-                />
+                <Root.Screen name="feedback" component={Feedback} options={{ title: 'Feedback' }} />
                 <Root.Screen name="faqs" component={Faqs} options={{ title: 'FAQ' }} />
             </Root.Navigator>
         </NavigationContainer>

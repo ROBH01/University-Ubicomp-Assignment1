@@ -1,26 +1,26 @@
 import React from 'react';
 import { Text, Pressable } from 'react-native';
-import colors from '../assets/styles/colors';
-import appStyles from '../assets/styles/style-config';
+import colors from '../../assets/styles/colors';
+import appStyles from '../../assets/styles/style-config';
 
-const CustomButton = ({ buttonName, onPressOut, height, width, disabled }) => (
+const Button = ({ name, onPress, height, width, disabled }) => (
     <Pressable
-        onPressOut={onPressOut}
+        onPressOut={onPress}
         disabled={disabled}
         style={({ pressed }) => [
             {
                 borderRadius: 10,
                 backgroundColor: disabled ? colors.lightgray : colors.blueTutton,
-                height: height,
-                width: pressed ? parseInt(width) - 2 + '%' : width,
+                height: height || 40,
+                width: pressed ? parseInt(width) - 2 + '%' : width || '40%',
                 alignSelf: 'center',
                 justifyContent: 'center',
                 elevation: 10,
             },
         ]}
     >
-        <Text style={appStyles.buttonStyle}>{buttonName}</Text>
+        <Text style={appStyles.buttonStyle}>{name}</Text>
     </Pressable>
 );
 
-export default CustomButton;
+export default Button;

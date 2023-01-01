@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import colors from '../assets/styles/colors';
-import CustomButton from '../components/CustomButton';
 import appStyles from '../assets/styles/style-config';
+import Button from '../components/Button/Button';
 
 const HomeScreen = ({ navigation }) => {
     const openStack = (screen) => {
@@ -17,26 +17,9 @@ const HomeScreen = ({ navigation }) => {
                 reviewed and updated when required
             </Text>
             <View style={styles.buttonsView}>
-                <CustomButton
-                    buttonName="BEACH LIST"
-                    onPressOut={() => openStack('beachList')}
-                    height={40}
-                    width={'80%'}
-                />
-
-                <CustomButton
-                    buttonName="FEEDBACK"
-                    onPressOut={() => openStack('feedback')}
-                    height={40}
-                    width={'80%'}
-                />
-
-                <CustomButton
-                    buttonName="FAQ"
-                    onPressOut={() => openStack('faqs')}
-                    height={40}
-                    width={'80%'}
-                />
+                <Button name="BEACH LIST" onPress={() => openStack('beachList')} width={'80%'} />
+                <Button name="FEEDBACK" onPress={() => openStack('feedback')} width={'80%'} />
+                <Button name="FAQ" onPress={() => openStack('faqs')} width={'80%'} />
             </View>
 
             <Image

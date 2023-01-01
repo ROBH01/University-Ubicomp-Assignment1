@@ -5,10 +5,10 @@ import { Text, View, Image, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import colors from '../assets/styles/colors';
 import openMap from 'react-native-open-maps';
-import CustomLineSeparator from '../components/LineSeparator';
-import CustomButton from '../components/CustomButton';
 import CustomisedCircle from './Circle';
 import appStyles from '../assets/styles/style-config';
+import HorizontalLine from './HorizontalLine/HorizontalLine';
+import Button from './Button/Button';
 
 const CustomModal = ({
     name,
@@ -98,16 +98,10 @@ const CustomModal = ({
 
                 {/* Google maps navigation buttons */}
                 <View style={styles.navigationButtonsView}>
-                    <CustomButton
-                        buttonName={'DIRECTIONS'}
-                        onPressOut={travelToBeach}
-                        height={30}
-                        width={'48%'}
-                    />
-                    <CustomButton
-                        buttonName={'NEAREST PARKING'}
-                        onPressOut={travelToNearestParking}
-                        height={30}
+                    <Button name={'DIRECTIONS'} onPress={travelToBeach} width={'48%'} />
+                    <Button
+                        name={'NEAREST PARKING'}
+                        onPress={travelToNearestParking}
                         width={'48%'}
                     />
                 </View>
@@ -146,19 +140,18 @@ const CustomModal = ({
                         <Text style={styles.textualInformationText}>{parkingAvailability}</Text>
                     </View>
 
-                    <CustomLineSeparator
+                    <HorizontalLine
                         width={'30%'}
                         height={2}
                         alignSelf={'center'}
-                        backgroundColor={colors.gray}
-                        marginTop={5}
-                        marginBottom={5}
+                        color={colors.gray}
+                        marginVertical={10}
                     />
                     <AdditionalInfo />
                 </View>
 
                 {/* Close button */}
-                <CustomButton buttonName="CLOSE" onPressOut={closeModal} height={30} width="40%" />
+                <Button name="CLOSE" onPress={closeModal} />
             </View>
         </Modal>
     );
