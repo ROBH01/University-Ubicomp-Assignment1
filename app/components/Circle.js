@@ -1,27 +1,15 @@
-import React from "react";
-import { View } from "react-native";
+import React from 'react';
+import { View } from 'react-native';
 
-// This component is used to draw a circle with the incoming props
-const CustomisedCircle = ({
-  width,
-  height,
-  borderRadius,
-  backgroundColor,
-  marginLeft,
-  alignSelf,
-}) => {
-  return (
+const CustomisedCircle = ({ width, height, borderRadius, backgroundColor }) => (
     <View
-      style={{
-        width: width,
-        height: height,
-        borderRadius: borderRadius,
-        backgroundColor: backgroundColor,
-        marginLeft: marginLeft,
-        alignSelf: alignSelf,
-      }}
+        style={{
+            width: width || 20,
+            height: height || 20,
+            borderRadius: borderRadius || 10,
+            backgroundColor,
+        }}
     />
-  );
-};
+);
 
 export default CustomisedCircle;
