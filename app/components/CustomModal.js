@@ -7,8 +7,8 @@ import colors from '../assets/styles/colors';
 import openMap from 'react-native-open-maps';
 import CustomisedCircle from './Circle';
 import appStyles from '../assets/styles/style-config';
-import HorizontalLine from './HorizontalLine/HorizontalLine';
-import Button from './Button/Button';
+import HorizontalLine from './HorizontalLine';
+import Button from './Button';
 
 const CustomModal = ({
     name,

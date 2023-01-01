@@ -5,8 +5,8 @@ import colors from '../../assets/styles/colors';
 import appStyles from '../../assets/styles/style-config';
 import ScreenLayout from '../../components/ScreenLayout';
 import Card from '../../components/Card';
-import HorizontalLine from '../../components/HorizontalLine/HorizontalLine';
-import Button from '../../components/Button/Button';
+import HorizontalLine from '../../components/HorizontalLine';
+import Button from '../../components/Button';
 
 const Feedback = () => {
     const [starRating, setStarRating] = useState(0);

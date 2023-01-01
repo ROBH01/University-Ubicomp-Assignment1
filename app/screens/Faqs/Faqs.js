@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import faqs from '../../apis/faqs.json';
 import FaqCard from './FaqCard';
-import ScreenLayout from '../../components/ScreenLayout/ScreenLayout';
+import ScreenLayout from '../../components/ScreenLayout';
 
 const Faqs = () => (
     <ScreenLayout>

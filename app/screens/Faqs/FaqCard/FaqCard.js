@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import colors from '../../../assets/styles/colors';
 import appStyles from '../../../assets/styles/style-config';
-import Card from '../../../components/Card/Card';
+import Card from '../../../components/Card';
 
 const FaqCard = ({ faq }) => {
     const { question, answer } = faq;

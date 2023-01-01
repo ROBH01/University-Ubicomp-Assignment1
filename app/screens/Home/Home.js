@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import colors from '../assets/styles/colors';
-import appStyles from '../assets/styles/style-config';
-import Button from '../components/Button/Button';
+import colors from '../../assets/styles/colors';
+import appStyles from '../../assets/styles/style-config';
+import Button from '../../components/Button';
 
-const HomeScreen = ({ navigation }) => {
+const Home = ({ navigation }) => {
     const openStack = (screen) => {
         navigation.push(screen);
     };
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default HomeScreen;
+export default Home;

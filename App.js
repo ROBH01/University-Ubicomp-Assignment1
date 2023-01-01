@@ -7,7 +7,7 @@ import { Icon, Tooltip } from 'react-native-elements';
 import Feedback from './app/screens/Feedback';
 import Faqs from './app/screens/Faqs';
 import colors from './app/assets/styles/colors';
-import HomeScreen from './app/screens/HomeScreen';
+import Home from './app/screens/Home';
 
 // Left icon
 const ActionBarIcon = () => (
@@ -57,7 +57,7 @@ export default function App() {
             <Root.Navigator initialRouteName="BCP Beach Check">
                 <Root.Screen
                     name="home"
-                    component={HomeScreen}
+                    component={Home}
                     options={{
                         title: 'BCP Beach Check',
                         headerStyle: { backgroundColor: colors.white },
