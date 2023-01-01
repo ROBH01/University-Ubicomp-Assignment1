@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, FlatList, Vibration } from 'react-native';
-import getBeaches from '../Beach-api';
-import RowCard from '../components/CustomRowList';
-import SearchBar from '../components/SearchBar';
+import getBeaches from '../../apis/beaches';
+import RowCard from '../../components/CustomRowList';
+import SearchBar from '../../components/SearchBar';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Icon } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
-import colors from '../assets/styles/colors';
-import appStyles from '../assets/styles/style-config';
+import colors from '../../assets/styles/colors';
+import appStyles from '../../assets/styles/style-config';
 
 const BeachListScreen = () => {
     const [beachData, setBeachData] = useState(getBeaches);

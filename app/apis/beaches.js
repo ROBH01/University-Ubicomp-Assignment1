@@ -16,6 +16,8 @@ const Constants = {
     },
 };
 
+// TODO: Convert this back to json only
+
 const beaches = [
     {
         id: 0,
