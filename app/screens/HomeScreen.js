@@ -32,7 +32,7 @@ const HomeScreen = ({ navigation }) => {
                 />
 
                 <CustomButton
-                    buttonName="FAQs"
+                    buttonName="FAQ"
                     onPressOut={() => openStack('faqs')}
                     height={40}
                     width={'80%'}

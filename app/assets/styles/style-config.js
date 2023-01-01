@@ -4,9 +4,7 @@ const appStyles = StyleSheet.create({
     borderRadius: {
         borderRadius: 15,
     },
-    paragraph: {
-        fontSize: 14,
-    },
+    defaultFontSize: 14,
     screenContainerStyle: {
         flex: 1,
         paddingLeft: 10,

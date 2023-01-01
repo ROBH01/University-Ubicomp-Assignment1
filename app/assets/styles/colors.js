@@ -1,7 +1,8 @@
 export default {
+    black: '#000',
     white: '#fff',
     inputBackground: '#ededed',
-    paragraph: '#515151',
+    gray: '#515151',
     blueIconActive: '#0078c6',
     lightgray: '#DEDEDE',
     blueTutton: '#2196F3',
