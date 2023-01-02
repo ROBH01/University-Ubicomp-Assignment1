@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, FlatList, Vibration } from 'react-native';
-import getBeaches from '../../apis/beaches';
 import RowCard from '../../components/CustomRowList';
 import SearchBar from '../../components/SearchBar';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -8,9 +7,21 @@ import { Icon } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
 import colors from '../../assets/styles/colors';
 import appStyles from '../../assets/styles/style-config';
+import beachList from '../../apis/beaches';
 
-const BeachListScreen = () => {
-    const [beachData, setBeachData] = useState(getBeaches);
+const SORT_TYPES = {
+    alphabetic: 'alphabetically',
+    availableSpaces: 'available',
+    parking: 'parking',
+    lifeguarded: 'lifeguarded',
+    toilets: 'toilets',
+    dogWalking: 'dog',
+    cycling: 'cycling',
+    bbq: 'bbq',
+};
+
+const BeachList = () => {
+    const [beaches, setBeaches] = useState(beachList);
     const [search, setSearch] = useState('');
     const [refreshing, setRefreshing] = useState(false);
     const [favBeaches, setFavBeaches] = useState([]);
@@ -50,18 +61,18 @@ const BeachListScreen = () => {
                 return itemData.indexOf(textData) > -1;
             });
         }
-        setBeachData(newBeachData);
+        setBeaches(newBeachData);
     };
 
     const clearSearch = () => {
         setSearch('');
-        setBeachData(getBeaches);
+        setBeaches(beachList);
     };
 
     const refreshBeaches = () => {
         setSearch('');
         setSortType('A-Z');
-        setBeachData(getBeaches);
+        setBeaches(beachList);
         Vibration.vibrate(20);
     };
 
@@ -79,11 +90,11 @@ const BeachListScreen = () => {
     const toggleFavBeaches = () => {
         if (!showFavBeaches) {
             setShowFavBeaches(true);
-            setBeachData(favBeaches);
+            setBeaches(favBeaches);
             Vibration.vibrate(10);
         } else {
             setShowFavBeaches(false);
-            setBeachData(getBeaches);
+            setBeaches(beachList);
             Vibration.vibrate(10);
         }
     };
@@ -91,26 +102,45 @@ const BeachListScreen = () => {
     const sortBeaches = (sortType) => {
         setSortType(sortType);
 
-        let beaches = getBeaches();
+        let beaches = beachList;
 
-        if (sortType === 'alphabetically') {
-            setBeachData(beaches);
-        } else if (sortType === 'free') {
-            setBeachData(beaches.filter((beach) => beach.beachStatus === 'Low congestion'));
-        } else if (sortType === 'parking') {
-            setBeachData(
-                beaches.filter((beach) => beach.parkingAvailability !== 'No parking at this beach'),
-            );
-        } else if (sortType === 'lifeguarded') {
-            setBeachData(beaches.filter((beach) => beach.lifeguarded));
-        } else if (sortType === 'toilets') {
-            setBeachData(beaches.filter((beach) => beach.publicToilets));
-        } else if (sortType === 'dog') {
-            setBeachData(beaches.filter((beach) => beach.dogWalking));
-        } else if (sortType === 'cycling') {
-            setBeachData(beaches.filter((beach) => beach.cycling));
-        } else if (sortType === 'bbq') {
-            setBeachData(beaches.filter((beach) => beach.bbq !== 'Not allowed'));
+        switch (sortType) {
+            case SORT_TYPES.alphabetic:
+                setBeaches(
+                    beaches.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1)),
+                );
+                break;
+            case SORT_TYPES.availableSpaces:
+                setBeaches(beaches.filter(({ beachStatus }) => beachStatus === 'Low congestion'));
+                break;
+            case SORT_TYPES.parking:
+                setBeaches(
+                    beaches.filter(
+                        ({ parkingAvailability }) =>
+                            parkingAvailability !== 'No parking at this beach',
+                    ),
+                );
+                break;
+            case SORT_TYPES.lifeguarded:
+                setBeaches(beaches.filter(({ lifeguarded }) => lifeguarded));
+                break;
+            case SORT_TYPES.toilets:
+                setBeaches(beaches.filter(({ publicToilets }) => publicToilets));
+                break;
+            case SORT_TYPES.dogWalking:
+                setBeaches(beaches.filter(({ dogWalking }) => dogWalking));
+                break;
+            case SORT_TYPES.cycling:
+                setBeaches(beaches.filter(({ cycling }) => cycling));
+                break;
+            case SORT_TYPES.bbq:
+                setBeaches(beaches.filter(({ bbq }) => bbq !== 'Not allowed'));
+                break;
+            default:
+                setBeaches(
+                    beaches.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1)),
+                );
+                break;
         }
     };
 
@@ -133,16 +163,16 @@ const BeachListScreen = () => {
                             width: 165,
                             height: 25,
                         }}
-                        onValueChange={(itemValue) => sortBeaches(itemValue)}
+                        onValueChange={sortBeaches}
                     >
-                        <Picker.Item label="A-Z" value="alphabetically" />
-                        <Picker.Item label="Not busy" value="free" />
-                        <Picker.Item label="Car parking" value="parking" />
-                        <Picker.Item label="Lifeguarded" value="lifeguarded" />
-                        <Picker.Item label="Public toilets" value="toilets" />
-                        <Picker.Item label="Dog walking" value="dog" />
-                        <Picker.Item label="Cycling" value="cycling" />
-                        <Picker.Item label="BBQ" value="bbq" />
+                        <Picker.Item label="A-Z" value={SORT_TYPES.alphabetic} />
+                        <Picker.Item label="Not busy" value={SORT_TYPES.availableSpaces} />
+                        <Picker.Item label="Car parking" value={SORT_TYPES.parking} />
+                        <Picker.Item label="Lifeguarded" value={SORT_TYPES.lifeguarded} />
+                        <Picker.Item label="Public toilets" value={SORT_TYPES.toilets} />
+                        <Picker.Item label="Dog walking" value={SORT_TYPES.dogWalking} />
+                        <Picker.Item label="Cycling" value={SORT_TYPES.cycling} />
+                        <Picker.Item label="BBQ" value={SORT_TYPES.bbq} />
                     </Picker>
                 </View>
 
@@ -160,7 +190,7 @@ const BeachListScreen = () => {
 
             {/* Flat list comonent displaying the beaches using the Row Card */}
             <FlatList
-                data={beachData}
+                data={beaches}
                 //keyExtractor={({ id }) => id}
                 refreshing={refreshing}
                 onRefresh={refreshBeaches}
@@ -212,4 +242,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default BeachListScreen;
+export default BeachList;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import BeachListScreen from './app/screens/BeachList';
+import BeachList from './app/screens/BeachList';
 import { Icon, Tooltip } from 'react-native-elements';
 import Feedback from './app/screens/Feedback';
 import Faqs from './app/screens/Faqs';
@@ -51,33 +51,29 @@ const Info = () => (
 
 const Root = createStackNavigator();
 
-export default function App() {
-    return (
-        <NavigationContainer>
-            <Root.Navigator initialRouteName="BCP Beach Check">
-                <Root.Screen
-                    name="home"
-                    component={Home}
-                    options={{
-                        title: 'BCP Beach Check',
-                        headerStyle: { backgroundColor: colors.white },
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            fontSize: 22,
-                            alignSelf: 'center',
-                        },
-                        headerLeft: ActionBarIcon,
-                        headerRight: Info,
-                    }}
-                />
-                <Root.Screen
-                    name="beachList"
-                    component={BeachListScreen}
-                    options={{ title: 'Beach list' }}
-                />
-                <Root.Screen name="feedback" component={Feedback} options={{ title: 'Feedback' }} />
-                <Root.Screen name="faqs" component={Faqs} options={{ title: 'FAQ' }} />
-            </Root.Navigator>
-        </NavigationContainer>
-    );
-}
+const App = () => (
+    <NavigationContainer>
+        <Root.Navigator initialRouteName="BCP Beach Check">
+            <Root.Screen
+                name="home"
+                component={Home}
+                options={{
+                    title: 'BCP Beach Check',
+                    headerStyle: { backgroundColor: colors.white },
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        fontSize: 22,
+                        alignSelf: 'center',
+                    },
+                    headerLeft: ActionBarIcon,
+                    headerRight: Info,
+                }}
+            />
+            <Root.Screen name="beachList" component={BeachList} options={{ title: 'Beach list' }} />
+            <Root.Screen name="feedback" component={Feedback} options={{ title: 'Feedback' }} />
+            <Root.Screen name="faqs" component={Faqs} options={{ title: 'FAQ' }} />
+        </Root.Navigator>
+    </NavigationContainer>
+);
+
+export default App;

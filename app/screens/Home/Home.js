@@ -1,61 +1,48 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import colors from '../../assets/styles/colors';
-import appStyles from '../../assets/styles/style-config';
 import Button from '../../components/Button';
+import ScreenLayout from '../../components/ScreenLayout';
 
-const Home = ({ navigation }) => {
-    const openStack = (screen) => {
-        navigation.push(screen);
-    };
+const socialDistanceImage = require('../../assets/socialdistance.png');
 
-    return (
-        <View style={styles.homeScreenContainer}>
-            <Text style={styles.generalNoticeTitle}>Important general notice:</Text>
-            <Text style={{ fontSize: 15, textAlign: 'center' }}>
-                Due to the closure of the summer season, congestion statuses will be continually
-                reviewed and updated when required
-            </Text>
-            <View style={styles.buttonsView}>
-                <Button name="BEACH LIST" onPress={() => openStack('beachList')} width={'80%'} />
-                <Button name="FEEDBACK" onPress={() => openStack('feedback')} width={'80%'} />
-                <Button name="FAQ" onPress={() => openStack('faqs')} width={'80%'} />
-            </View>
-
-            <Image
-                source={require('../assets/socialdistance.png')}
-                style={{
-                    width: 100,
-                    height: 60,
-                    alignSelf: 'center',
-                    resizeMode: 'contain',
-                }}
-            />
+const Home = ({ navigation }) => (
+    <ScreenLayout>
+        <Text style={styles.title}>Important general notice</Text>
+        <Text style={styles.subtitle}>
+            Due to the closure of the summer season, congestion statuses will be continually
+            reviewed and updated when required
+        </Text>
+        <View style={styles.buttons}>
+            <Button name="BEACH LIST" onPress={() => navigation.push('beachList')} width={'80%'} />
+            <Button name="FEEDBACK" onPress={() => navigation.push('feedback')} width={'80%'} />
+            <Button name="FAQ" onPress={() => navigation.push('faqs')} width={'80%'} />
         </View>
-    );
-};
+        <Image source={socialDistanceImage} style={styles.image} />
+    </ScreenLayout>
+);
 
 const styles = StyleSheet.create({
-    homeScreenContainer: {
-        flex: appStyles.screenContainerStyle.flex,
-        justifyContent: 'space-around',
-        alignContent: 'center',
-        paddingTop: 5,
-        paddingLeft: appStyles.screenContainerStyle.paddingLeft,
-        paddingRight: appStyles.screenContainerStyle.paddingRight,
-        backgroundColor: colors.lightgray,
-    },
-    generalNoticeTitle: {
-        color: '#e2042d',
+    title: {
+        color: colors.redSemaphor,
         fontSize: 18,
-        marginBottom: 5,
+        margin: 15,
         textAlign: 'center',
     },
-    buttonsView: {
-        height: '40%',
-        marginTop: 10,
-        marginBottom: 10,
+    subtitle: {
+        fontSize: 15,
+        textAlign: 'center',
+    },
+    buttons: {
+        margin: 50,
+        height: '50%',
         justifyContent: 'space-around',
+    },
+    image: {
+        width: 100,
+        height: 60,
+        alignSelf: 'center',
+        resizeMode: 'contain',
     },
 });
 
