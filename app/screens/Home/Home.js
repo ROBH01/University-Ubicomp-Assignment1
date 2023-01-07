@@ -24,7 +24,7 @@ const Home = ({ navigation }) => (
 
 const styles = StyleSheet.create({
     title: {
-        color: colors.redSemaphor,
+        color: colors.red,
         fontSize: 18,
         margin: 15,
         textAlign: 'center',

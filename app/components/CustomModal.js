@@ -90,7 +90,7 @@ const CustomModal = ({
                 {/* Image view */}
                 <View style={styles.imageView}>
                     <Image
-                        borderRadius={appStyles.borderRadius.borderRadius}
+                        borderRadius={appStyles.borderRadius}
                         source={imagePath}
                         style={{ width: '100%', height: '100%' }}
                     />
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     modalContainer: {
         paddingLeft: appStyles.screenContainerStyle.paddingLeft,
         paddingRight: appStyles.screenContainerStyle.paddingRight,
-        borderRadius: appStyles.borderRadius.borderRadius,
+        borderRadius: appStyles.borderRadius,
         paddingTop: 5,
         paddingBottom: 5,
         justifyContent: 'space-between',
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     },
     statsInfoView: {
         justifyContent: 'space-evenly',
-        borderRadius: appStyles.borderRadius.borderRadius,
+        borderRadius: appStyles.borderRadius,
         padding: 5,
         marginTop: 5,
         backgroundColor: colors.modalStatsInfoView,

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     searchView: {
         flexDirection: 'row',
         alignContent: 'center',
-        borderRadius: appStyles.borderRadius.borderRadius,
+        borderRadius: appStyles.borderRadius,
         backgroundColor: 'white',
         justifyContent: 'center',
         alignItems: 'center',

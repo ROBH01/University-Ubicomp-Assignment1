@@ -6,9 +6,11 @@ import colors from '../assets/styles/colors';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import CustomisedCircle from './Circle';
 import appStyles from '../assets/styles/style-config';
+import FavouriteCard from '../screens/BeachList/FavouriteCard/FavouriteCard';
 
-const RowCard = ({ beach, renderRightActions }) => {
+const RowCard = ({ beach, handleFavourite }) => {
     const {
+        id,
         name,
         beachStatus,
         lifeguarded,
@@ -23,6 +25,7 @@ const RowCard = ({ beach, renderRightActions }) => {
         longitude,
         latitudeParking,
         longitudeParking,
+        isFavourite,
     } = beach;
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -35,13 +38,13 @@ const RowCard = ({ beach, renderRightActions }) => {
 
     if (beachStatus === 'Avoid') {
         // TODO: Add constants here instead.
-        semaphorRed = colors.redSemaphor;
+        semaphorRed = colors.red;
         statusColour = semaphorRed;
     } else if (beachStatus === 'Congested, stay alert') {
-        semaphorAmber = colors.amberSemaphor;
+        semaphorAmber = colors.amber;
         statusColour = semaphorAmber;
     } else if (beachStatus === 'Low congestion') {
-        semaphorGreen = colors.greenSemaphor;
+        semaphorGreen = colors.lightGreen;
         statusColour = semaphorGreen;
     } else {
         statusColour = lightGrayColour;
@@ -65,7 +68,14 @@ const RowCard = ({ beach, renderRightActions }) => {
             overshootRight={false}
             friction={2}
             rightThreshold={20}
-            renderRightActions={renderRightActions}
+            renderRightActions={() => (
+                <FavouriteCard
+                    key={id}
+                    beach={beach}
+                    onPress={handleFavourite}
+                    iconColour={isFavourite ? 'orange' : 'gray'}
+                />
+            )}
         >
             <TouchableOpacity
                 activeOpacity={0.5}
@@ -96,7 +106,7 @@ const RowCard = ({ beach, renderRightActions }) => {
                     {/* This view renders the beach image */}
                     <View style={styles.image}>
                         <Image
-                            borderRadius={appStyles.borderRadius.borderRadius}
+                            borderRadius={appStyles.borderRadius}
                             source={imagePath}
                             style={{ width: '100%', height: '100%' }}
                         />
@@ -169,7 +179,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         backgroundColor: colors.white,
         flexDirection: 'row',
-        borderRadius: appStyles.borderRadius.borderRadius,
+        borderRadius: appStyles.borderRadius,
         justifyContent: 'flex-start',
     },
     beachTitle: {
